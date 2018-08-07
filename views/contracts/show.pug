@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+	.row
+		.col-md-3
+			h6.display-4 Constructor
+				ul.list-group
+					each method in init
+						li.list-group-item
+							a.sc-action(href="#")= method.type
+			h6.display-4 Functions
+				ul.list-group
+					each method in methods
+						li.list-group-item
+							a.sc-action(href="#")= method.name
+			h6.display-4 Variables
+				ul.list-group
+					each variable in variables
+						li.list-group-item
+							a.sc-action(href="#")= variable.name
+			h6.display-4 Events
+				ul.list-group
+					each event in events
+						li.list-group-item
+							a.sc-action(href="#")= event.name
+
+
+	script(type='text/javascript').
+		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
+		const contractAddress = "#{contract.address}"
+

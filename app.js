@@ -29,6 +29,7 @@ dotenv.load({ path: '.env' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const contactController = require('./controllers/contact');
+const contractController = require('./controllers/contract');
 
 /**
  * API keys and Passport configuration.
@@ -107,6 +108,7 @@ app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 3155760000
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/lodash'), { maxAge: 31557600000 }));
 app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
 
 /**
@@ -124,6 +126,9 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
+app.get('/contract', contractController.getContract);
+app.post('/contract', contractController.createContract);
+app.get('/contract/:id', contractController.show);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
