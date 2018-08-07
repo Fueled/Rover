@@ -26,8 +26,37 @@ block content
 		.col-md-8
 			#content
 
+			h4.h4 Transaction Details
+			table.table.table-bordered
+				tbody
+					tr
+						th(scope='row') Status
+						td
+							| 0x1 Transaction mined and execution succeed
+					tr
+						th(scope='row') Transaction Hash
+						td 0xd6c056bac50cddbf55b0e3f11b941c676e66447fb5fd54f09290d231d4562ff6
+					tr
+						th(scope='row') From
+						td 0x4b806c771b558e92ffde571032d4cc3bebad5c21
+					tr
+						th(scope='row') To
+						td 0x4b806c771b558e92ffde571032d4cc3bebad5c21
+					tr
+						th(scope='row') Gas
+						td 3123920 gas
+					tr
+						th(scope='row') Transaction Cost
+						td 3117881 gas 
+					tr
+						th(scope='row') Input
+						td Mark 
+					tr
+						th(scope='row', colspan='1') Value
+						td Mark 
+
+
 	script#inputlist(type='text/html').	
-		
 		<form>
 			<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
 				<h6>Input</h6>
