@@ -1,63 +1,94 @@
 extends ../layout
 
 block content
+	.row.justify-content-md-center
+		h6.display-heading Contract Address:
+			a(href="https://rinkeby.etherscan.io/tx/#{contract.address}")= contract.address
 	.row
-		.col-md-4
-			h4.h4 Constructor
-				ul.list-group
-					each method in init
-						li.list-group-item
-							a.sc-action(href="#")= method.type
-			h4.h4 Functions
-				ul.list-group
-					each method in methods
-						li.list-group-item
-							a.sc-action(href="#")= method.name
-			h4.h4 Variables
-				ul.list-group
-					each variable in variables
-						li.list-group-item
-							a.sc-action(href="#")= variable.name
-			h4.h4 Events
-				ul.list-group
-					each event in events
-						li.list-group-item
-							a.sc-action(href="#")= event.name
-		.col-md-8
-			#content
+		.col-md-3
+			h4.display-heading Constructor
+			ul.list-group
+				each method in init
+					li.list-group-item
+						a.sc-constructor(href="#")= method.type
+			h4.display-heading Functions
+			ul.list-group
+				each method in methods
+					li.list-group-item
+						a.sc-action(href="#")= method.name
+			h4.display-heading Variables
+			ul.list-group
+				each variable in variables
+					li.list-group-item
+						a.sc-variable(href="#")= variable.name
+			h4.display-heading Events
+			ul.list-group
+				each event in events
+					li.list-group-item
+						a.sc-event(href="#")= event.name
+		.col-md-9
+			#input-form.container
+			#transaction-hash.container
+			#transaction-details.container
+			#event-details.container
+			#output.container
 
-			h4.h4 Transaction Details
-			table.table.table-bordered
-				tbody
-					tr
-						th(scope='row') Status
-						td
-							| 0x1 Transaction mined and execution succeed
-					tr
-						th(scope='row') Transaction Hash
-						td 0xd6c056bac50cddbf55b0e3f11b941c676e66447fb5fd54f09290d231d4562ff6
-					tr
-						th(scope='row') From
-						td 0x4b806c771b558e92ffde571032d4cc3bebad5c21
-					tr
-						th(scope='row') To
-						td 0x4b806c771b558e92ffde571032d4cc3bebad5c21
-					tr
-						th(scope='row') Gas
-						td 3123920 gas
-					tr
-						th(scope='row') Transaction Cost
-						td 3117881 gas 
-					tr
-						th(scope='row') Input
-						td Mark 
-					tr
-						th(scope='row', colspan='1') Value
-						td Mark 
+	script#transaction-hash-template(type='text/html').
+		<div id="transaction-hash-container">
+			<h4 class="display-heading">Transaction Hash</h4>
+			<a target="_blank" href="https://rinkeby.etherscan.io/tx/<%- hash %>"><%- hash %></a>
+		</div>
 
+	script#transaction-details-template(type='text/html').
+		<div id="transaction-container">
+			<h4 class="display-heading">Transaction Details</h4>
+			<table class="table table-bordered">
+				<tbody>
+					<tr>
+						<th scope="row">Status</th>
+						<td><%- receipt.status %></td>
+					</tr>
+					<tr>
+						<th scope="row">Transaction Hash</th>
+						<td><%- receipt.transactionHash %></td>
+					</tr>
+					<tr>
+						<th scope="row">From</th>
+						<td><%- receipt.from %></td>
+					</tr>
+					<tr>
+						<th scope="row">To</th>
+						<td><%- receipt.to %></td>
+					</tr>
+					<tr>
+						<th scope="row">Gas</th>
+						<td><%- receipt.gasUsed %></td>
+					</tr>
+					<tr>
+						<th scope="row">Transaction Cost</th>
+						<td><%- receipt.cumulativeGasUsed %></td>
+					</tr>
+					<tr>
+						<th scope="row">Input</th>
+						<td><%- inputData %></td>
+					</tr>
+					<tr>
+						<th scope="row" colspan="1">Value</th>
+						<td>0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	script#inputlist(type='text/html').	
-		<form>
+	script#output-template(type='text/html').
+		<h6>Output</h6>
+		<div class="form-group">
+			<input class="form-control" value="<%- result %>" disabled>
+		</div>
+
+	script#inputlist(type='text/html').
+		<h4 class="display-heading"><%- action %></h4>
+		<form id="input-params" method="POST">
 			<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
 				<h6>Input</h6>
 				<% _.forEach(inputs, function(input) { %>
@@ -67,7 +98,6 @@ block content
 					</div>
 				<% }); %>
 			<% } %>
-
 			<% if (payable) { %>
 				<h6>Send Ether (Payable)</h6>
 				<div class="form-group">
@@ -75,10 +105,49 @@ block content
 					<input class="form-control" name="ethereum">
 				</div>
 			<% } %>
-			<button type="submit" class="btn btn-primary">Transact</button>
+			<button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
 		</form>
+
+	script#event-list-template(type='text/html').
+		<h4 class="display-heading">Events</h4>
+		<% _.forEach(events, function(eventDetails) { %>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col" colspan="2"><%- eventDetails.name %></th>
+					</tr>
+				</thead>
+				<tbody>
+				<% _.forEach(eventDetails.events, function(eventItem) { %>
+					<tr>
+						<th scope="row"><%- eventItem.name %> (<%- eventItem.type %>)</th>
+						<td><%- eventItem.value %></td>
+					</tr>
+				<% }); %>
+				</tbody>
+			</table>
+		<% }); %>
+
+
+	script#past-events-template(type='text/html').
+		<h4 class="display-heading">Past Events - <%- eventName %></h4>
+		<% _.forEach(events, function(eventDetails) { %>
+			<table class="table table-bordered">
+				<tbody>
+				<tr>
+					<th scope="row">Retruned Value</th>
+					<td><%- JSON.stringify(eventDetails.returnValues) %></td>
+				</tr>
+				<tr>
+					<th scope="row">Transaction Hash</th>
+					<td><%- eventDetails.transactionHash %></td>
+				</tr>
+				</tbody>
+			</table>
+		<% }); %>
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
 		const contractAddress = "#{contract.address}"
+
 

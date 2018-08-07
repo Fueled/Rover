@@ -65,6 +65,7 @@ exports.show = (req, res) => {
 		var [events, variables, methods, init] = [abiGroup.event,functions[0], functions[1], abiGroup.constructor]
 
 		res.render('contracts/show', {
+			title: contract.name,
 			contract: contract,
 			events: events,
 			init: init,

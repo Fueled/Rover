@@ -1,7 +1,7 @@
 SmartContract ABI Explorer 
 =======================
 
-> Easy SmartContract Testing
+> Easy Smart Contract Testing
 
 Contributing
 ------------

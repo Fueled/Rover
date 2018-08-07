@@ -1,19 +1,24 @@
 extends ../layout
 
 block content
-  form(method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label(for='contractAddress') Contract Address
-      input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
-      small#emailHelp.form-text.text-muted Contract Address Deployed
-    .form-group
-      label(for='contractName') Name (Optional)
-      input#contractName.form-control(placeholder='Contract Name' name='name')
-      small#emailHelp.form-text.text-muted Name which can be used for future reference.
-    .form-group
-      label(for='contractAbi') ABI Interface
-      textarea#contractAbi.form-control(rows='12' name='abi')
-    button.btn.btn-primary(type='submit') Submit
+  .container
+    .row.justify-content-md-center
+      h4.display-heading
+      .col-md-7
+        h4.display-heading Upload Contract
+        form(method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-group
+            label(for='contractAddress') Contract Address
+            input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
+            small#contractAddressHelp.form-text.text-muted Contract Address Deployed
+          .form-group
+            label(for='contractName') Name (Optional)
+            input#contractName.form-control(placeholder='Contract Name' name='name')
+            small#contractNameHelp.form-text.text-muted Name which can be used for future reference.
+          .form-group
+            label(for='contractAbi') ABI Interface
+            textarea#contractAbi.form-control(rows='8' name='abi')
+          button.btn.btn-primary(type='submit') Submit
 
     
