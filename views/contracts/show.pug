@@ -2,28 +2,52 @@ extends ../layout
 
 block content
 	.row
-		.col-md-3
-			h6.display-4 Constructor
+		.col-md-4
+			h4.h4 Constructor
 				ul.list-group
 					each method in init
 						li.list-group-item
 							a.sc-action(href="#")= method.type
-			h6.display-4 Functions
+			h4.h4 Functions
 				ul.list-group
 					each method in methods
 						li.list-group-item
 							a.sc-action(href="#")= method.name
-			h6.display-4 Variables
+			h4.h4 Variables
 				ul.list-group
 					each variable in variables
 						li.list-group-item
 							a.sc-action(href="#")= variable.name
-			h6.display-4 Events
+			h4.h4 Events
 				ul.list-group
 					each event in events
 						li.list-group-item
 							a.sc-action(href="#")= event.name
+		.col-md-8
+			#content
 
+	script#inputlist(type='text/html').	
+		
+		<form>
+			<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
+				<h6>Input</h6>
+				<% _.forEach(inputs, function(input) { %>
+					<div class="form-group">
+						<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+						<input class="form-control" name="<%- input.name %>">
+					</div>
+				<% }); %>
+			<% } %>
+
+			<% if (payable) { %>
+				<h6>Send Ether (Payable)</h6>
+				<div class="form-group">
+					<label for="ether">Ethereum</label>
+					<input class="form-control" name="ethereum">
+				</div>
+			<% } %>
+			<button type="submit" class="btn btn-primary">Transact</button>
+		</form>
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})

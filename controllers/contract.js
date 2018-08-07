@@ -15,7 +15,6 @@ exports.getContract = (req, res) => {
 
 
 exports.createContract = (req, res) => {
-	console.log('Form Params', req.body);
 	var contract = new contractModel({
 		name: req.body.name,
 		abi: req.body.abi,
