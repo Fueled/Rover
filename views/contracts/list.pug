@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+	.row.justify-content-md-center
+		h6.display-heading Contracts
+		
+		ul
+			each contract in contracts
+				li= contract.name
+

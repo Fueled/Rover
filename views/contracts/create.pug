@@ -8,6 +8,7 @@ block content
         h4.display-heading Upload Contract
         form(method='POST')
           input(type='hidden', name='_csrf', value=_csrf)
+          input(type='hidden', name='user', id='user', value=user._id)
           .form-group
             label(for='contractAddress') Contract Address
             input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')

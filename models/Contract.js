@@ -4,7 +4,9 @@ var Schema   = mongoose.Schema;
 var contractSchema = new Schema({
 	'name' : String,
 	'abi' : String,
-	'address' : String
-});
+	'address' : String,
+	'user': { type: Schema.Types.ObjectId, ref: 'User' }
+}, { timestamps: true });
 
-module.exports = mongoose.model('contract', contractSchema);
+
+module.exports = mongoose.model('Contract', contractSchema);

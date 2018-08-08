@@ -8,11 +8,12 @@ const _ = require('lodash')
  */
 
 exports.getContract = (req, res) => {
+	const unknownUser = !(req.user);
 	res.render('contracts/create', {
-		title: 'Contract'
+		title: 'Contract',
+		unknownUser
 	});
 };
-
 
 exports.createContract = (req, res) => {
 	var contract = new contractModel({
@@ -34,7 +35,7 @@ exports.createContract = (req, res) => {
 }
 
 exports.list = (req, res) => {
-	contractModel.find(function (err, contracts) {
+	contractModel.find({ user: req.user._id }, function (err, contracts) {
 		if (err) {
 			return res.status(500).json({
 				message: 'Error when getting contract.',
@@ -42,6 +43,12 @@ exports.list = (req, res) => {
 			});
 		}
 		return res.json(contracts);
+
+		// return res.render('contracts/list', {
+		// 	title: 'Contracts',
+		// 	contracts: contracts,
+			
+		// });
 	});
 }
 
@@ -64,7 +71,7 @@ exports.show = (req, res) => {
 		var functions = _.partition(abiGroup.function, function(abi) { return abi.constant; });
 		var [events, variables, methods, init] = [abiGroup.event,functions[0], functions[1], abiGroup.constructor]
 
-		res.render('contracts/show', {
+		return res.render('contracts/show', {
 			title: contract.name,
 			contract: contract,
 			events: events,

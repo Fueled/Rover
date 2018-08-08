@@ -126,9 +126,10 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-app.get('/contract', contractController.getContract);
-app.post('/contract', contractController.createContract);
+app.get('/contract', passportConfig.isAuthenticated, contractController.getContract);
+app.post('/contract', passportConfig.isAuthenticated, contractController.createContract);
 app.get('/contract/:id', contractController.show);
+app.get('/contracts', contractController.list);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
@@ -158,5 +159,13 @@ app.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
   console.log('  Press CTRL-C to stop\n');
 });
+
+function loggedIn(req, res, next) {
+  if (req.user) {
+      next();
+  } else {
+      res.redirect('/login');
+  }
+}
 
 module.exports = app;

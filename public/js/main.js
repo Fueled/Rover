@@ -5,7 +5,6 @@ $(document).ready(() => {
 		web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
 	}
 
-	let eventsReceipt = { "blockHash": "0x0c9bfd3d326d5574e0bbe2177aece7d4977fa7d42b7598e0a3dcf955a172e489", "blockNumber": 2765228, "contractAddress": null, "cumulativeGasUsed": 2171645, "from": "0xcba51f72fd47e7aaa62070fa92cec0b11087a449", "gasUsed": 2171645, "logs": [{ "address": "0xfD688bABe455fae5b253F622d8C003F0Cf6b7600", "topics": ["0xded6ebf04e261e1eb2f3e3b268a2e6aee5b478c15b341eba5cf18b9bc80c2e63"], "data": "0x", "blockNumber": 2765228, "transactionHash": "0xf60fa4df87f281bb7656ac84e5bc1a18ef4446c07ad58a9d6c3cf7fe1e384ac3", "transactionIndex": 0, "blockHash": "0x0c9bfd3d326d5574e0bbe2177aece7d4977fa7d42b7598e0a3dcf955a172e489", "logIndex": 0, "removed": false, "id": "log_93f54738" }, { "address": "0x886f782651F368d73889323E3181Af0EEf125a3b", "topics": ["0x435bf45836eaa9dad81c372adff25e1bc1c74d872a15d9f36218af4e4b903d7b"], "data": "0x000000000000000000000000fd688babe455fae5b253f622d8c003f0cf6b7600", "blockNumber": 2765228, "transactionHash": "0xf60fa4df87f281bb7656ac84e5bc1a18ef4446c07ad58a9d6c3cf7fe1e384ac3", "transactionIndex": 0, "blockHash": "0x0c9bfd3d326d5574e0bbe2177aece7d4977fa7d42b7598e0a3dcf955a172e489", "logIndex": 1, "removed": false, "id": "log_e5a1b512" }], "logsBloom": "0x00000000000000004000000000000000000000000000000000000000000002200000000000000000000000000000000000004000000080000000000000000000000000000080000000000000000000000000000000000000100000008000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000", "status": true, "to": "0x886f782651f368d73889323e3181af0eef125a3b", "transactionHash": "0xf60fa4df87f281bb7656ac84e5bc1a18ef4446c07ad58a9d6c3cf7fe1e384ac3", "transactionIndex": 0 }
 	let currentContract = new web3.eth.Contract(contractAbi, contractAddress);
 	abiDecoder.addABI(contractAbi);
 
@@ -41,7 +40,7 @@ $(document).ready(() => {
 						.once("receipt", function (receipt) {
 							let transactionTemplate = _.template($("#transaction-details-template").html());
 							let eventsTemplate = _.template($("#event-list-template").html());
-							const decodedLogs = abiDecoder.decodeLogs(eventsReceipt.logs);
+							const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
 
 							$("#transaction-details").html(transactionTemplate({
 								receipt: receipt,
