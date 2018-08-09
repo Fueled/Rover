@@ -1,5 +1,7 @@
 const contractModel = require('../models/Contract.js');
 const _ = require('lodash')
+const Web3 = require('web3');
+var api = require('etherscan-api').init(process.env.ETHERSCAN_API_KEY,'rinkeby', '3000')
 
 /**
  * contractController.js
@@ -47,7 +49,7 @@ exports.list = (req, res) => {
 		// return res.render('contracts/list', {
 		// 	title: 'Contracts',
 		// 	contracts: contracts,
-			
+
 		// });
 	});
 }
@@ -79,5 +81,65 @@ exports.show = (req, res) => {
 			variables: variables,
 			methods: methods
 		});
+	});
+}
+
+exports.showTransactions = (req, res) => {
+	var id = req.params.id;
+
+	contractModel.findOne({ _id: id }, function (err, contract) {
+		if (err) {
+			return res.status(500).json({
+				message: 'Error when getting contract.',
+				error: err
+			});
+		}
+		if (!contract) {
+			return res.status(404).json({
+				message: 'No such contract'
+			});
+		}
+
+		var txlist = api.account.txlist(contract.address);
+		txlist.then(function(response){
+			// res.json(response)
+			return res.render('contracts/transactions', {
+				title: 'Transactions',
+				contract: contract,
+				transactions: response.result
+			});
+		});
+	});
+}
+
+exports.showEvents = (req, res) => {
+	var id = req.params.id;
+
+	contractModel.findOne({ _id: id }, function (err, contract) {
+		if (err) {
+			return res.status(500).json({
+				message: 'Error when getting contract.',
+				error: err
+			});
+		}
+		if (!contract) {
+			return res.status(404).json({
+				message: 'No such contract'
+			});
+		}
+
+		let web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
+		let currentContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
+
+		currentContract.getPastEvents('allEvents', {
+			fromBlock: 0,
+			toBlock: 'latest'
+		}, function (error, events) {
+			return res.render('contracts/events', {
+				title: 'Events',
+				contract: contract,
+				events: events
+			});
+		})
 	});
 }

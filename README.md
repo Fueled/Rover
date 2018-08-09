@@ -1,5 +1,6 @@
 SmartContract ABI Explorer 
 =======================
+[![Build Status](https://travis-ci.org/ravidsrk/smartcontract-abi-explorer.svg?branch=develop)](https://travis-ci.org/ravidsrk/smartcontract-abi-explorer)
 
 > Easy Smart Contract Testing
 
