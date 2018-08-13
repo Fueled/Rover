@@ -17,6 +17,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
+const moment = require('moment');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -104,6 +105,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.locals.moment = require('moment');
+
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));

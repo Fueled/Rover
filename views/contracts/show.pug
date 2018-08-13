@@ -3,7 +3,7 @@ extends ../layout
 block content
 	.row.justify-content-md-center
 		h6.display-heading Contract Address:
-			a(href="https://rinkeby.etherscan.io/tx/#{contract.address}")= contract.address
+			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 	.row
 		.col-md-3
 			h4.display-heading Constructor

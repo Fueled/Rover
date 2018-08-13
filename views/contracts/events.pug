@@ -2,26 +2,24 @@ extends ../layout
 
 block content
 	.row.justify-content-md-center
-		h6.display-heading Contract Address:
-			a(href="https://rinkeby.etherscan.io/tx/#{contract.address}")= contract.address
-
+		h6.display-heading  Events for Contract Address:
+			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 	.row
-		.col-md-12
-			h4.display-heading Events
-			ul.list-group
+		h4.display-heading
+		table.table.table-striped
+			thead
+				tr
+					th(scope='col') Event Name
+					th(scope='col') Transaction
+					th(scope='col') Params
+			tbody
 				each event in events
-					li.list-group-item
-						a.sc-constructor(href="#") #{event.event}
-			#input-form
-			#transaction-hash
-			#transaction-details
-			#event-details
-			#output
-
-
+					tr
+						th(scope='row')= event.event
+						td
+							a(href=`https://rinkeby.etherscan.io/tx/${event.transactionHash}`) #{event.transactionHash}
+						td #{JSON.stringify(event.returnValues)}
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
 		const contractAddress = "#{contract.address}"
-
-
