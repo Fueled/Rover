@@ -28,6 +28,7 @@
     "connect-mongo": "^2.0.1",
     "dotenv": "^6.0.0",
     "errorhandler": "^1.5.0",
+    "etherscan-api": "^8.1.2",
     "express": "^4.16.3",
     "express-flash": "^0.0.2",
     "express-session": "^1.15.6",
@@ -36,6 +37,7 @@
     "lob": "^6.0.0",
     "lodash": "^4.17.10",
     "lusca": "^1.6.1",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.6",
     "morgan": "^1.9.0",
     "node-sass": "^4.9.2",
@@ -50,7 +52,8 @@
     "popper.js": "^1.14.4",
     "pug": "^2.0.3",
     "request": "^2.87.0",
-    "validator": "^10.5.0"
+    "validator": "^10.5.0",
+    "web3": "^1.0.0-beta.35"
   },
   "devDependencies": {
     "chai": "^4.1.2",
