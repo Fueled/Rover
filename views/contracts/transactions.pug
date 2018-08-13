@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+	.row.justify-content-md-center
+		h6.display-heading Contract Address:
+			a(href="https://rinkeby.etherscan.io/tx/#{contract.address}")= contract.address
+
+	.row
+		.col-md-12
+			h4.display-heading Transactions
+			ul.list-group
+				each transaction in transactions
+					li.list-group-item
+						a.sc-constructor(href="#") #{transaction}
+			#input-form
+			#transaction-hash
+			#transaction-details
+			#event-details
+			#output
+
+
+
+	script(type='text/javascript').
+		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
+		const contractAddress = "#{contract.address}"
+
+
