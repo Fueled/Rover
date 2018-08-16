@@ -32,7 +32,7 @@ exports.createContract = (req, res) => {
 				error: err
 			});
 		}
-		return res.redirect('/contract/' + contract._id);
+		return res.redirect('/c/' + contract._id);
 	});
 }
 
