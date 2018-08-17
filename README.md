@@ -1,6 +1,6 @@
 # Rover
 
-[![Build Status](https://travis-ci.org/ravidsrk/smartcontract-abi-explorer.svg?branch=develop)](https://travis-ci.org/ravidsrk/smartcontract-abi-explorer)
+[![Build Status](https://travis-ci.org/ravidsrk/Rover.svg?branch=develop)](https://travis-ci.org/ravidsrk/Rover)
 
 > SmartContract Testing Made Easy
 

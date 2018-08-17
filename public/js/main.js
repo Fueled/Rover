@@ -1,3 +1,4 @@
+/* eslint-env jquery, browser */
 $(document).ready(() => {
 	let currentContract
 	let explorerApplication

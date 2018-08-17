@@ -71,7 +71,7 @@ var abiDecoder =
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory();
@@ -94,7 +94,7 @@ var abiDecoder =
 	     * Local polyfil of Object.create
 	     */
 	    var create = Object.create || (function () {
-	        function F() {};
+	        function F() {}
 
 	        return function (obj) {
 	            var subtype;
@@ -836,7 +836,7 @@ var abiDecoder =
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -3447,7 +3447,7 @@ $exports.store = store;
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -3587,7 +3587,7 @@ $exports.store = store;
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(47), __webpack_require__(46));
@@ -3724,7 +3724,7 @@ $exports.store = store;
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -4149,7 +4149,7 @@ module.exports = Property;
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/MikeMcl/bignumber.js/LICENCE */
 
-;(function (global) {
+(function (global) {
     'use strict';
 
     /*
@@ -4956,8 +4956,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/Mik
                       !x.s || !y.s || ( xc ? yc && xc[0] == yc[0] : !yc ) ? NaN :
 
                         // Return ±0 if x is ±0 or y is ±Infinity, or return ±Infinity as y is ±0.
-                        xc && xc[0] == 0 || !yc ? s * 0 : s / 0
-                    );
+                        xc && xc[0] == 0 || !yc ? s * 0 : s / 0);
                 }
 
                 q = new BigNumber(s);
@@ -6488,8 +6487,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/Mik
             e *= 2;
 
             // Determine which fraction is closer to x, n0/d0 or n1/d1
-            arr = div( n1, d1, e, ROUNDING_MODE ).minus(x).abs().cmp(
-                  div( n0, d0, e, ROUNDING_MODE ).minus(x).abs() ) < 1
+            arr = div( n1, d1, e, ROUNDING_MODE ).minus(x).abs().cmp(div( n0, d0, e, ROUNDING_MODE ).minus(x).abs() ) < 1
                     ? [ n1.toString(), d1.toString() ]
                     : [ n0.toString(), d0.toString() ];
 
@@ -7254,7 +7252,7 @@ module.exports = function (key) {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -8393,7 +8391,7 @@ exports.f = __webpack_require__(13);
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -8541,7 +8539,7 @@ exports.f = __webpack_require__(13);
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -8970,7 +8968,7 @@ module.exports = __webpack_require__(10);
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -9174,7 +9172,7 @@ module.exports = __webpack_require__(10);
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(27));
@@ -9396,7 +9394,7 @@ module.exports = __webpack_require__(10);
 	                var lane = state[0];
 	                var roundConstant = ROUND_CONSTANTS[round];
 	                lane.high ^= roundConstant.high;
-	                lane.low  ^= roundConstant.low;;
+	                lane.low  ^= roundConstant.low;
 	            }
 	        },
 
@@ -9502,7 +9500,7 @@ module.exports = __webpack_require__(10);
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(27));
@@ -10456,7 +10454,7 @@ function padZeros(address) {
   }
 
   return "0x" + formatted;
-};
+}
 
 function _decodeLogs(logs) {
   return logs.map(function (logItem) {
@@ -11260,7 +11258,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(14), __webpack_require__(16), __webpack_require__(15), __webpack_require__(1));
@@ -11497,7 +11495,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -11651,7 +11649,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -11722,7 +11720,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(27), __webpack_require__(101), __webpack_require__(98), __webpack_require__(14), __webpack_require__(16), __webpack_require__(47), __webpack_require__(58), __webpack_require__(117), __webpack_require__(60), __webpack_require__(118), __webpack_require__(59), __webpack_require__(116), __webpack_require__(46), __webpack_require__(112), __webpack_require__(15), __webpack_require__(1), __webpack_require__(102), __webpack_require__(104), __webpack_require__(103), __webpack_require__(106), __webpack_require__(105), __webpack_require__(107), __webpack_require__(108), __webpack_require__(109), __webpack_require__(111), __webpack_require__(110), __webpack_require__(99), __webpack_require__(97), __webpack_require__(119), __webpack_require__(115), __webpack_require__(114), __webpack_require__(113));
@@ -11745,7 +11743,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -11826,7 +11824,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -11909,7 +11907,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12030,7 +12028,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12093,7 +12091,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12138,7 +12136,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12197,7 +12195,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12251,7 +12249,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12300,7 +12298,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12345,7 +12343,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12380,7 +12378,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(1));
@@ -12430,7 +12428,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(47), __webpack_require__(46));
@@ -12580,7 +12578,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(14), __webpack_require__(16), __webpack_require__(15), __webpack_require__(1));
@@ -12775,7 +12773,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(14), __webpack_require__(16), __webpack_require__(15), __webpack_require__(1));
@@ -12972,7 +12970,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(14), __webpack_require__(16), __webpack_require__(15), __webpack_require__(1));
@@ -13116,7 +13114,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory) {
+(function (root, factory) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0));
@@ -13388,7 +13386,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(58));
@@ -13473,7 +13471,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(27), __webpack_require__(60));
@@ -13561,7 +13559,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
-;(function (root, factory, undef) {
+(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
 		module.exports = exports = factory(__webpack_require__(0), __webpack_require__(14), __webpack_require__(16), __webpack_require__(15), __webpack_require__(1));
@@ -14361,7 +14359,7 @@ module.exports = {"version":"0.18.4"}
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
-;(function(root) {
+(function(root) {
 
 	// Detect free variables `exports`
 	var freeExports = typeof exports == 'object' && exports;
@@ -14428,10 +14426,8 @@ module.exports = {"version":"0.18.4"}
 
 	function checkScalarValue(codePoint) {
 		if (codePoint >= 0xD800 && codePoint <= 0xDFFF) {
-			throw Error(
-				'Lone surrogate U+' + codePoint.toString(16).toUpperCase() +
-				' is not a scalar value'
-			);
+			throw Error('Lone surrogate U+' + codePoint.toString(16).toUpperCase() +
+				' is not a scalar value');
 		}
 	}
 	/*--------------------------------------------------------------------------*/

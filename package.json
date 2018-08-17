@@ -1,10 +1,10 @@
 {
-  "name": "smartcontract-abi-explorer",
+  "name": "rover",
   "version": "0.0.1",
-  "description": "Easy Smart Contract Testing",
+  "description": "Smart Contract Interaction Made Easy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ravidsrk/smartcontract-abi-explorer.git"
+    "url": "https://github.com/ravidsrk/Rover.git"
   },
   "author": "Ravindra Kumar",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "postinstall": "npm rebuild node-sass",
     "start": "nodemon app.js",
     "test": "nyc mocha --timeout=3000 --exit",
-    "lint": "eslint **/*.js"
+    "lint": "eslint \"**/*.js\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
