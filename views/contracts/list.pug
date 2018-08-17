@@ -2,9 +2,10 @@ extends ../layout
 
 block content
 	.row.justify-content-md-center
-		h6.display-heading Contracts
-		
-		ul
-			each contract in contracts
-				li= contract.name
-
+		.col-md-9
+			h6.display-heading Your Contracts
+			ul.list-group
+				each contract in contracts
+					li.list-group-item
+						a(href=`/c/${contract._id}`)= contract.name 
+						a(href=`/c/${contract._id}`)= contract.address 

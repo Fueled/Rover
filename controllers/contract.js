@@ -21,8 +21,8 @@ exports.createContract = (req, res) => {
 	var contract = new contractModel({
 		name: req.body.name,
 		abi: req.body.abi,
-		address: req.body.address
-
+		address: req.body.address,
+		user: req.user._id
 	});
 
 	contract.save(function (err, contract) {
@@ -44,13 +44,11 @@ exports.list = (req, res) => {
 				error: err
 			});
 		}
-		return res.json(contracts);
+		return res.render('contracts/list', {
+			title: 'Contracts',
+			contracts: contracts,
 
-		// return res.render('contracts/list', {
-		// 	title: 'Contracts',
-		// 	contracts: contracts,
-
-		// });
+		});
 	});
 }
 
