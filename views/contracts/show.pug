@@ -6,42 +6,50 @@ block content
 			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 	.row
 		.col-md-3
-			h4.display-heading Constructor
-			ul.list-group
-				each method in init
-					li.list-group-item
-						a.sc-constructor(href="#")= method.type
-			h4.display-heading Functions
-			ul.list-group
-				each method in methods
-					li.list-group-item
-						a.sc-action(href="#")= method.name
-			h4.display-heading Variables
-			ul.list-group
-				each variable in variables
-					li.list-group-item
-						a.sc-variable(href="#")= variable.name
-			h4.display-heading Events
-			ul.list-group
-				each event in events
-					li.list-group-item
-						a.sc-event(href="#")= event.name
+			.card.my-2
+				.card-body
+					h4.card-title Constructor
+					ul.list-group.list-group-flush
+						each method in init
+							li.list-group-item
+								a.sc-constructor(href="#")= method.type
+			.card.my-2
+				.card-body
+					h4.card-title Functions
+					ul.list-group.list-group-flush
+						each method in methods
+							li.list-group-item
+								a.sc-action(href="#")= method.name
+			.card.my-2
+				.card-body
+					h4.card-title Variables
+					ul.list-group.list-group-flush
+						each variable in variables
+							li.list-group-item
+								a.sc-variable(href="#")= variable.name
+			.card.my-2
+				.card-body
+					h4.card-title Events
+					ul.list-group.list-group-flush
+						each event in events
+							li.list-group-item
+								a.sc-event(href="#")= event.name
 		.col-md-9
-			#input-form
-			#transaction-hash
-			#transaction-details
+			#input-form.card.my-2
+			#transaction-hash.card
+			#transaction-details.card
 			#event-details
-			#output
+			#output.card
 
 	script#transaction-hash-template(type='text/html').
 		<div id="transaction-hash-container">
-			<h4 class="display-heading">Transaction Hash</h4>
+			<h3>Transaction Hash</h3>
 			<a target="_blank" href="https://rinkeby.etherscan.io/tx/<%- hash %>"><%- hash %></a>
 		</div>
 
 	script#transaction-details-template(type='text/html').
 		<div id="transaction-container">
-			<h4 class="display-heading">Transaction Details</h4>
+			<h3>Transaction Details</h3>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -81,35 +89,41 @@ block content
 		</div>
 
 	script#output-template(type='text/html').
-		<h4 class="display-heading">Output</h4>
-		<div class="form-group">
-			<input class="form-control" value="<%- result %>" disabled>
+		<div class="card-body">
+			<h5>Output</h5>
+			<div class="form-group">
+				<input class="form-control" value="<%- result %>" disabled>
+			</div>
 		</div>
 
 	script#inputlist(type='text/html').
-		<h4 class="display-heading"><%- action %></h4>
-		<form id="input-params" method="POST">
-			<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
-				<h6>Input</h6>
-				<% _.forEach(inputs, function(input) { %>
+		<div class="card-body">
+			<h3><%- action %></h3>
+			<hr>
+			<form id="input-params" method="POST">
+				<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
+					<h5>Input</h5>
+					<% _.forEach(inputs, function(input) { %>
+						<div class="form-group">
+							<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+							<input class="form-control" name="<%- input.name %>">
+						</div>
+					<% }); %>
+				<% } %>
+				<% if (payable) { %>
+					<h5>Send Ether (Payable)</h5>
 					<div class="form-group">
-						<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
-						<input class="form-control" name="<%- input.name %>">
+						<label for="ether">Ethereum</label>
+						<input class="form-control" name="ethereum">
 					</div>
-				<% }); %>
-			<% } %>
-			<% if (payable) { %>
-				<h6>Send Ether (Payable)</h6>
-				<div class="form-group">
-					<label for="ether">Ethereum</label>
-					<input class="form-control" name="ethereum">
-				</div>
-			<% } %>
-			<button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
-		</form>
+				<% } %>
+				<button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
+			</form>
+		</div>
 
 	script#event-list-template(type='text/html').
-		<h4 class="display-heading">Events</h4>
+		<h3>Events</h3>
+		
 		<% _.forEach(events, function(eventDetails) { %>
 			<table class="table table-bordered">
 				<thead>
@@ -128,26 +142,26 @@ block content
 			</table>
 		<% }); %>
 
-
 	script#past-events-template(type='text/html').
-		<h4 class="display-heading">Past Events - <%- eventName %></h4>
+		<h3>Past Events - <%- eventName %></h3>
 		<% _.forEach(events, function(eventDetails) { %>
-			<table class="table table-bordered">
-				<tbody>
-				<tr>
-					<th scope="row">Retruned Value</th>
-					<td><%- JSON.stringify(eventDetails.returnValues) %></td>
-				</tr>
-				<tr>
-					<th scope="row">Transaction Hash</th>
-					<td><%- eventDetails.transactionHash %></td>
-				</tr>
-				</tbody>
-			</table>
+			<div class="card my-3">
+				<div class="card-body">
+					<p class="card-text"> <strong>Transaction Hash: </strong>
+						<a href="https://rinkeby.etherscan.io/tx/<%- eventDetails.transactionHash %>"><%- eventDetails.transactionHash %></a>
+					</p>
+					<p class="card-title"><strong>Params</strong></p>
+					<p>
+						<pre>
+							<code class=" language-javascript">
+								<%- JSON.stringify(eventDetails.returnValues) %>
+							</code>
+						</pre>
+					</p>
+				</div>
+			</div>
 		<% }); %>
-
+		
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
 		const contractAddress = "#{contract.address}"
-
-
