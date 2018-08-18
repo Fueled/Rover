@@ -36,20 +36,22 @@ block content
 								a.sc-event(href="#")= event.name
 		.col-md-9
 			#input-form.card.my-2
-			#transaction-hash.card
-			#transaction-details.card
+			#transaction-hash.card.my-2
+			#transaction-details.card.my-2
 			#event-details
-			#output.card
+			#output.card.my-2
 
 	script#transaction-hash-template(type='text/html').
-		<div id="transaction-hash-container">
-			<h3>Transaction Hash</h3>
+		<div class="card-body" id="transaction-hash-container">
+			<h3 class="card-title">Transaction Hash </h3>
+			<hr>
 			<a target="_blank" href="https://rinkeby.etherscan.io/tx/<%- hash %>"><%- hash %></a>
 		</div>
 
 	script#transaction-details-template(type='text/html').
-		<div id="transaction-container">
-			<h3>Transaction Details</h3>
+		<div id="transaction-container" class="card-body">
+			<h3 class="card-title">Transaction Details</h3>
+			<hr>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -90,7 +92,7 @@ block content
 
 	script#output-template(type='text/html').
 		<div class="card-body">
-			<h5>Output</h5>
+			<h5 class="card-title">Output</h5>
 			<div class="form-group">
 				<input class="form-control" value="<%- result %>" disabled>
 			</div>
@@ -98,11 +100,11 @@ block content
 
 	script#inputlist(type='text/html').
 		<div class="card-body">
-			<h3><%- action %></h3>
+			<h3 class="card-title"><%- action %></h3>
 			<hr>
 			<form id="input-params" method="POST">
 				<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
-					<h5>Input</h5>
+					<h5 class="card-title">Input</h5>
 					<% _.forEach(inputs, function(input) { %>
 						<div class="form-group">
 							<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
@@ -111,7 +113,7 @@ block content
 					<% }); %>
 				<% } %>
 				<% if (payable) { %>
-					<h5>Send Ether (Payable)</h5>
+					<h5 class="card-title">Send Ether (Payable)</h5>
 					<div class="form-group">
 						<label for="ether">Ethereum</label>
 						<input class="form-control" name="ethereum">
@@ -123,7 +125,6 @@ block content
 
 	script#event-list-template(type='text/html').
 		<h3>Events</h3>
-		
 		<% _.forEach(events, function(eventDetails) { %>
 			<table class="table table-bordered">
 				<thead>
@@ -151,13 +152,7 @@ block content
 						<a href="https://rinkeby.etherscan.io/tx/<%- eventDetails.transactionHash %>"><%- eventDetails.transactionHash %></a>
 					</p>
 					<p class="card-title"><strong>Params</strong></p>
-					<p>
-						<pre>
-							<code class=" language-javascript">
-								<%- JSON.stringify(eventDetails.returnValues) %>
-							</code>
-						</pre>
-					</p>
+					<pre><code class="language-javascript"><%- JSON.stringify(eventDetails.returnValues) %></code></pre>
 				</div>
 			</div>
 		<% }); %>

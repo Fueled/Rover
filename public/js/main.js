@@ -43,6 +43,7 @@ $(document).ready(() => {
 							$("#transaction-hash").html(transactionHashTemplate({ hash: hash, }));
 						})
 						.once("receipt", function (receipt) {
+							console.log(receipt)
 							displayTransactionDetails(receipt)
 						})
 						.on("error", function (error) {
