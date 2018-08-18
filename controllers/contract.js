@@ -22,7 +22,8 @@ exports.createContract = (req, res) => {
 		name: req.body.name,
 		abi: req.body.abi,
 		address: req.body.address,
-		user: req.user._id
+		user: req.user._id,
+		network: req.body.network
 	});
 
 	contract.save(function (err, contract) {

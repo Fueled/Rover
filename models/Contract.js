@@ -5,7 +5,8 @@ var contractSchema = new Schema({
 	'name' : String,
 	'abi' : String,
 	'address' : String,
-	'user': { type: Schema.Types.ObjectId, ref: 'User' }
+	'user': { type: Schema.Types.ObjectId, ref: 'User' },
+	'network': String
 }, { timestamps: true });
 
 
