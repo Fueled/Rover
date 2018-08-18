@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/ravidsrk/Rover.svg?branch=develop)](https://travis-ci.org/ravidsrk/Rover)
 
-> SmartContract Testing Made Easy
+> Testing/Interaction for your Smart Contract made simple.
+
+Interact with Smart Contract ABI, Realtime Events, Realtime Transactions
 
 ## Contributing
 
