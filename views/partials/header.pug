@@ -1,36 +1,41 @@
-.navbar.navbar-light.fixed-top.navbar-expand-md
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
 	.container
 		a.navbar-brand(href='/')
 			i.fas.fa-cube
 			| Rover
-		button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-			span.sr-only Toggle navigation
-			span.navbar-toggler-icon
-		.collapse.navbar-collapse
-			ul.nav.navbar-nav
+		#navbarSupportedContent.collapse.navbar-collapse
+			ul.navbar-nav.mr-auto
 				if contract
 					li.nav-item(class=(title === 'Transactions') ? 'active' : undefined)
 						a.nav-link(href=`/c/${contract._id}/transactions`) Transactions
 					li.nav-item(class=(title === 'Events') ? 'active' : undefined)
 						a.nav-link(href=`/c/${contract._id}/events`) Events
-			ul.nav.navbar-nav.ml-auto
-				if !user
-					li.nav-item(class=(title === 'Login') ? 'active' : undefined)
-						a.nav-link(href='/login') Login
-					li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
-						a.nav-link(href='/signup') Create Account
-				else
-					li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
-						a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
-							if user.profile.picture
-								img(src=user.profile.picture)
-							else
-								img(src=user.gravatar(60))
-							span= user.profile.name || user.email || user.id
-							i.caret
-						ul.dropdown-menu
-							li.dropdown-item
-								a(href='/account') My Account
-							li.divider.dropdown-item
-							li.dropdown-item
-								a(href='/logout') Logout
+			.md-form.my-0
+				ul.navbar-nav.mr-auto
+					if contract
+						li.nav-item.dropdown
+							a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+								| Mainnet
+							.dropdown-menu.dropdown-info(aria-labelledby='navbarDropdownMenuLink')
+								a.dropdown-item(href='#') Action
+								a.dropdown-item(href='#') Another action
+								a.dropdown-item(href='#') Something else here
+					if !user
+						li.nav-item(class=(title === 'Login') ? 'active' : undefined)
+							a.nav-link(href='/login') Login
+						li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
+							a.nav-link(href='/signup') Create Account
+					else
+						li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+							a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+								span= user.profile.name || user.email || user.id
+								i.caret
+							ul.dropdown-menu
+								li.dropdown-item
+									a(href='/account') My Account
+								li.divider.dropdown-item
+								li.dropdown-item
+									a(href='/contracts') My Contracts
+								li.divider.dropdown-item
+								li.dropdown-item
+									a(href='/logout') Logout

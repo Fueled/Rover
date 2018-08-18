@@ -12,14 +12,20 @@ block content
           .form-group
             label(for='contractAddress') Contract Address
             input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
-            small#contractAddressHelp.form-text.text-muted Contract Address Deployed
           .form-group
             label(for='contractName') Name (Optional)
             input#contractName.form-control(placeholder='Contract Name' name='name')
-            small#contractNameHelp.form-text.text-muted Name which can be used for future reference.
+          .form-group
+            label(for='network') Network
+            select#network.form-control.mdb-select
+              option(value='' disabled='' selected='') Select Network
+              option(value='mainnet') Main Ethereum Network
+              option(value='ropsten') Ropsten Test Network
+              option(value='rinkeby') Rinkeby Test Network
+              option(value='kovan') Kovan Test Network
           .form-group
             label(for='contractAbi') ABI Interface
-            textarea#contractAbi.form-control(rows='8' name='abi')
+            textarea#contractAbi.form-control(rows='10' name='abi')
           button.btn.btn-primary(type='submit') Submit
 
     
