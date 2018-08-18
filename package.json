@@ -34,6 +34,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
     "jquery": "^3.3.1",
+    "jsonminify": "^0.4.1",
     "lob": "^6.0.0",
     "lodash": "^4.17.10",
     "lusca": "^1.6.1",

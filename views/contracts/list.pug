@@ -16,3 +16,7 @@ block content
 						p.card-text 
 							strong Network: 
 							| #{contract.network}
+						p.card-text 
+							strong ABI: 
+							pre
+								code.language-javascript #{jsonminify(contract.abi)}

@@ -107,6 +107,7 @@ app.use((req, res, next) => {
 
 app.locals.moment = require('moment');
 app.locals.web3 = require('web3');
+app.locals.jsonminify = require('jsonminify');
 
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
