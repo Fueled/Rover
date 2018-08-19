@@ -14,11 +14,11 @@ block content
 							= event.event
 						p.card-text 
 							strong Transaction Hash: 
-							a(href=`https://rinkeby.etherscan.io/tx/${event.transactionHash}`) #{event.transactionHash}
+							a(href=`/c/${contract._id}/transactions/${event.transactionHash}`) #{event.transactionHash}
 						p.card-title 
-							strong Params
+							strong Params:
 							pre
-								code.language-javascript #{JSON.stringify(event.returnValues)}
+								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(event.returnValues)),null,2)}
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})

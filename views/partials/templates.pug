@@ -1,0 +1,116 @@
+script#transaction-hash-template(type='text/html').
+    <div class="card-body" id="transaction-hash-container">
+        <h3 class="card-title">Transaction Hash </h3>
+        <hr>
+        <a target="_blank" href="https://rinkeby.etherscan.io/tx/<%- hash %>"><%- hash %></a>
+    </div>
+
+script#transaction-details-template(type='text/html').
+    <div id="transaction-container" class="card-body">
+        <h3 class="card-title">Transaction Details</h3>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td><%- receipt.status %></td>
+                </tr>
+                <tr>
+                    <th scope="row">Transaction Hash</th>
+                    <td><%- receipt.transactionHash %></td>
+                </tr>
+                <tr>
+                    <th scope="row">From</th>
+                    <td><%- receipt.from %></td>
+                </tr>
+                <tr>
+                    <th scope="row">To</th>
+                    <td><%- receipt.to %></td>
+                </tr>
+                <tr>
+                    <th scope="row">Gas</th>
+                    <td><%- receipt.gasUsed %></td>
+                </tr>
+                <tr>
+                    <th scope="row">Transaction Cost</th>
+                    <td><%- receipt.cumulativeGasUsed %></td>
+                </tr>
+                <tr>
+                    <th scope="row">Input</th>
+                    <td>
+                        <pre><code class="language-javascript"><%- inputData %></code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" colspan="1">Value</th>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+script#output-template(type='text/html').
+    <div class="card-body">
+        <h5 class="card-title">Output</h5>
+        <div class="form-group">
+            <input class="form-control" value="<%- result %>" disabled>
+        </div>
+    </div>
+
+script#inputlist(type='text/html').
+    <div class="card-body">
+        <h3 class="card-title"><%- action %></h3>
+        <hr>
+        <form id="input-params" method="POST">
+            <% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
+                <h5 class="card-title">Input</h5>
+                <% _.forEach(inputs, function(input) { %>
+                    <div class="form-group">
+                        <label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+                        <input class="form-control" name="<%- input.name %>">
+                    </div>
+                <% }); %>
+            <% } %>
+            <% if (payable) { %>
+                <h5 class="card-title">Send Ether (Payable)</h5>
+                <div class="form-group">
+                    <label for="ether">Ethereum</label>
+                    <input class="form-control" name="ethereum">
+                </div>
+            <% } %>
+            <button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
+        </form>
+    </div>
+
+script#event-list-template(type='text/html').
+    <h3>Events</h3>
+    <% _.forEach(events, function(eventDetails) { %>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2"><%- eventDetails.name %></th>
+                </tr>
+            </thead>
+            <tbody>
+            <% _.forEach(eventDetails.events, function(eventItem) { %>
+                <tr>
+                    <th scope="row"><%- eventItem.name %> (<%- eventItem.type %>)</th>
+                    <td><%- eventItem.value %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    <% }); %>
+
+script#past-events-template(type='text/html').
+    <h3>Past Events - <%- eventName %></h3>
+    <% _.forEach(events, function(eventDetails) { %>
+        <div class="card my-3">
+            <div class="card-body">
+                <p class="card-text"> <strong>Transaction Hash: </strong>
+                    <a href="https://rinkeby.etherscan.io/tx/<%- eventDetails.transactionHash %>"><%- eventDetails.transactionHash %></a>
+                </p>
+                <p class="card-title"><strong>Params</strong></p>
+                <pre><code class="language-javascript"><%- JSON.stringify(JSON.parse(JSON.stringify(eventDetails.returnValues)),null,2) %></code></pre>
+            </div>
+        </div>
+    <% }); %>

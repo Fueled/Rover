@@ -2,27 +2,28 @@ extends ../layout
 
 block content
   .row.justify-content-md-center
-    h4.display-heading
     .col-md-7
-      h2 Upload Contract
-      form(method='POST')
-        input(type='hidden', name='_csrf', value=_csrf)
-        input(type='hidden', name='user', id='user', value=user._id)
-        .form-group
-          label(for='contractAddress') Contract Address
-          input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
-        .form-group
-          label(for='contractName') Name (Optional)
-          input#contractName.form-control(placeholder='Contract Name' name='name')
-        .form-group
-          label(for='network') Network
-          select#network.form-control.mdb-select(name='network')
-            option(value='' disabled='' selected='') Select Network
-            option(value='mainnet') Main Ethereum Network
-            option(value='rinkeby') Rinkeby Test Network
-            option(value='ropsten') Ropsten Test Network
-            option(value='kovan') Kovan Test Network
-        .form-group
-          label(for='contractAbi') ABI Interface
-          textarea#contractAbi.form-control(rows='9' name='abi')
-        button.btn.btn-primary(type='submit') Submit
+      .card
+        .card-body
+          h2.card-title Upload Contract
+          form(method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            input(type='hidden', name='user', id='user', value=user._id)
+            .form-group
+              label(for='contractAddress') Contract Address
+              input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
+            .form-group
+              label(for='contractName') Name (Optional)
+              input#contractName.form-control(placeholder='Contract Name' name='name')
+            .form-group
+              label(for='network') Network
+              select#network.form-control.mdb-select(name='network')
+                option(value='' disabled='' selected='') Select Network
+                option(value='mainnet') Main Ethereum Network
+                option(value='rinkeby') Rinkeby Test Network
+                option(value='ropsten') Ropsten Test Network
+                option(value='kovan') Kovan Test Network
+            .form-group
+              label(for='contractAbi') ABI Interface
+              textarea#contractAbi.form-control(rows='8' name='abi')
+            button.btn.btn-primary(type='submit') Submit

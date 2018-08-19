@@ -140,11 +140,11 @@ app.post('/contact', contactController.postContact);
 
 app.get('/contract', passportConfig.isAuthenticated, contractController.getContract);
 app.post('/contract', passportConfig.isAuthenticated, contractController.createContract);
+app.get('/contracts', contractController.list);
 app.get('/c/:id', contractController.show);
 app.get('/c/:id/transactions', contractController.showTransactions);
+app.get('/c/:id/transactions/:hash', contractController.showTransaction);
 app.get('/c/:id/events', contractController.showEvents);
-
-app.get('/contracts', contractController.list);
 
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);

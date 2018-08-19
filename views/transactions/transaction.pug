@@ -1,0 +1,91 @@
+extends ../layout
+
+block content
+	.row
+		.col-md-12.col-lg-8
+			.card
+				.card-body
+					h3.card-title Transaction Details 
+					hr
+					h6 #{transaction.hash}
+					span.d-block.mb-2
+					a(href=`https://rinkeby.etherscan.io/address/${transaction.from}`)
+						span
+						span.d-none.d-md-none.d-lg-inline #{transaction.from}
+						span.d-md-inline-block.d-lg-none 0x9542&ndash;5b5164
+					span.text-muted   &rarr; 
+					a(href=`https://rinkeby.etherscan.io/address/${transaction.to}`)
+						span
+						span.d-none.d-md-none.d-lg-inline #{transaction.to}
+						span.d-md-inline-block.d-lg-none 0xe797&ndash;a06bac
+					.d-flex.flex-row.justify-content-start.text-muted
+					span.mr-4.text-transaction Transaction
+					span.mr-4 
+						if transactionReceipt.status
+							| Success
+						else
+							| Failure
+					span.mr-4
+						span #{moment.unix(transactionBlock.timestamp).fromNow()}
+					hr
+					// Block Hash
+					dl.row
+						dt.col-sm-3.text-muted Block Height 
+						dd.col-sm-9
+							a.transaction__link(href='/en/blocks/4091989') #{transaction.number}
+					// Nonce
+					dl.row
+						dt.col-sm-3.text-muted  Nonce 
+						dd.col-sm-9  52404 
+					// TX Fee
+					dl.row
+						dt.col-sm-3.text-muted  TX Fee 
+						dd.col-sm-9  #{transactionBlock.gasUsed}
+					// Input
+					dl.row.mb-0
+						dt.col-sm-3.text-muted  Decoded Input 
+						dd.col-sm-9
+							pre
+								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(decodedInput)),null,2)}
+			
+		.col-md-12.col-lg-4
+			.row
+				.col-md-6.col-lg-12
+					.card.bg-primary
+						.card-body
+							h2.card-title.text-white ETH Value
+							.text-right
+								h3.text-white  0.00000002 ETH
+								span.text-light  $0.000000001391359906 USD
+				
+				.col-md-6.col-lg-12.my-4
+					.card
+						.card-body
+							h2.card-title  Gas 
+							.text-right
+								// Gas Used
+								h3
+									span
+										| Used                    21,000 @
+										| 1 Gwei
+									// Gas Limit
+								span.text-muted
+								| Limit                  21,000
+
+	.row
+		.col-md-12
+			.card.my-3
+				.card-body
+					h3.card-title Events
+					hr
+					each eventDetail in events
+						h5.card-title #{eventDetail.name}
+						each event in eventDetail.events
+							dl.row
+								dt.col-sm-3.text-muted  #{event.name} (#{event.type})
+								dd.col-sm-9  #{event.value}
+						hr
+
+
+
+					

@@ -12,7 +12,7 @@ block content
 					.card-body
 						p.card-text 
 							strong Transaction Hash: 
-							a(href=`https://rinkeby.etherscan.io/tx/${transaction.hash}`) #{transaction.hash}
+							a(href=`/c/${contract._id}/transactions/${transaction.hash}`) #{transaction.hash}
 						p.card-text 
 							strong Timestamp: 
 							| #{moment.unix(transaction.timeStamp).fromNow()}
