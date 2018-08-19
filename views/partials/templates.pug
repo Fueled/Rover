@@ -65,8 +65,13 @@ script#inputlist(type='text/html').
                 <h5 class="card-title">Input</h5>
                 <% _.forEach(inputs, function(input) { %>
                     <div class="form-group">
-                        <label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
-                        <input class="form-control" name="<%- input.name %>">
+                        <% if (input.name === "") { %>
+                            <label for="input"><%- input.type %></label>
+                            <input class="form-control" name="input">
+                        <% } else { %>
+                            <label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+                            <input class="form-control" name="<%- input.name %>">
+                        <% } %>
                     </div>
                 <% }); %>
             <% } %>
@@ -77,7 +82,11 @@ script#inputlist(type='text/html').
                     <input class="form-control" name="ethereum">
                 </div>
             <% } %>
-            <button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
+            <% if (isVariable) { %>
+                <button type="submit" class="btn btn-primary send-call-request" rel="<%- action %>">Call</button>
+            <% } else { %>
+                <button type="submit" class="btn btn-primary send-transaction" rel="<%- action %>">Transact</button>
+            <% } %>
         </form>
     </div>
 

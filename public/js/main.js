@@ -25,7 +25,10 @@ $(document).ready(() => {
     e.preventDefault();
 
     let formData = $("#input-params").serializeArray();
-    let transactionParams = _.map(formData, "value");
+    let filterFormData = _.filter(formData, (input) => { return input.name !== "ethereum" })
+    let ethereumInput = _.find(formData, (input) => { return input.name === "ethereum" })
+    let amount = web3.utils.toWei(typeof ethereumInput !== 'undefined'? ethereumInput.value: '0')
+    let transactionParams = _.map(filterFormData, "value");
     let methodName = $(this).attr("rel");
 
     explorerApplication
@@ -36,7 +39,8 @@ $(document).ready(() => {
             .sendTransaction({
               from: accounts[0],
               to: data["address"],
-              data: data["data"]
+              data: data["data"],
+              value: amount 
             })
             .once("transactionHash", function(hash) {
               let transactionHashTemplate = _.template($("#transaction-hash-template").html());
@@ -54,12 +58,22 @@ $(document).ready(() => {
       });
   });
 
+  $(document).on("click", ".send-call-request", function(e) {
+    e.preventDefault();
+
+    let formData = $("#input-params").serializeArray();
+    let transactionParams = _.map(formData, "value");
+    let variableName = $(this).attr("rel");
+
+    invokeEthCallRequestForMethod(variableName, transactionParams);
+  });
+
   $(".sc-action").on("click", function(e) {
     e.preventDefault();
     clearContainers();
 
     var actionName = $(this).text();
-    createInputListForAction(actionName);
+    createInputListForAction(actionName, false);
   });
 
   $(".sc-variable").on("click", function(e) {
@@ -67,8 +81,23 @@ $(document).ready(() => {
     clearContainers();
 
     var variableName = $(this).text();
-    invokeEthCallRequestForMethod(variableName);
+
+    var variableAbi = getAbiForAction(variableName);
+
+    if (variableAbi.inputs.length > 0) {
+      createInputListForAction(variableName, true);
+    } else {
+      invokeEthCallRequestForMethod(variableName);
+    }
   });
+
+  function getAbiForAction(actionName) {
+    let abi = _.find(contractAbi, function(abi) {
+      return abi.name === actionName;
+    });
+
+    return abi
+  }
 
   $(".sc-event").on("click", function(e) {
     e.preventDefault();
@@ -78,39 +107,35 @@ $(document).ready(() => {
     displayPastEvents(eventName);
   });
 
-  function invokeEthCallRequestForMethod(variableName) {
-    explorerApplication.getTransactionConfig(variableName).then(data => {
-      web3.eth
-        .call({
-          to: data["address"],
-          data: data["data"]
-        })
-        .then(data => {
-          let output = _.template($("#output-template").html());
-          $("#output").html(output({
-              result: removePaddedZeros(data)
-            }));
-        });
-    });
+  function invokeEthCallRequestForMethod(variableName, transactionParams) {
+    currentContract.methods[variableName]
+      .apply(this, transactionParams || [])
+      .call()
+      .then(result => {
+        console.log(result);
+        displayOutput(variableName, result);
+      });
   }
 
-  function createInputListForAction(actionName) {
-    var actionAbi = _.find(contractAbi, function(abi) {
-      return abi.name === actionName;
-    });
+  function displayOutput(variableName, results) {
+    let abi = getAbiForAction(variableName);
+    let output = _.template($("#output-template").html());
+    $("#output").html(output({
+        result: results
+      }));
+  }
+
+  function createInputListForAction(actionName, isVariable) {
+    var actionAbi = getAbiForAction(actionName);
 
     let input = _.template($("#inputlist").html());
 
     $("#input-form").html(input({
         inputs: actionAbi.inputs,
         payable: actionAbi.payable,
-        action: actionAbi.name
+        action: actionAbi.name,
+        isVariable: isVariable
       }));
-  }
-
-  function removePaddedZeros(address) {
-    let numberString = web3.utils.hexToNumberString(address);
-    return web3.utils.toHex(numberString);
   }
 
   function displayTransactionDetails(receipt, data) {
@@ -118,7 +143,9 @@ $(document).ready(() => {
     let eventsTemplate = _.template($("#event-list-template").html());
     const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
 
-	const formattedInput = JSON.stringify(JSON.parse(JSON.stringify(abiDecoder.decodeMethod(data["data"]))),null,2);
+    const formattedInput = JSON.stringify(JSON.parse(JSON.stringify(abiDecoder.decodeMethod(data["data"]))),
+      null,
+      2);
 
     $("#transaction-details").html(transactionTemplate({
         receipt: receipt,
@@ -127,9 +154,9 @@ $(document).ready(() => {
 
     $("#event-details").html(eventsTemplate({
         events: _.compact(decodedLogs)
-	}));
-	
-	Prism.highlightAll();
+      }));
+
+    Prism.highlightAll();
   }
 
   function displayPastEvents(eventName) {
@@ -148,11 +175,11 @@ $(document).ready(() => {
     $("#event-details").html(eventsTemplate({
         events: events,
         eventName: eventName
-	}));
-	Prism.highlightAll();
+      }));
+    Prism.highlightAll();
+  }
+
+  function clearContainers() {
+    $("#input-form, #transaction-hash, #transaction-details, #output, #event-details").empty();
   }
 });
-
-function clearContainers() {
-  $("#input-form, #transaction-hash, #transaction-details, #output, #event-details").empty();
-}
