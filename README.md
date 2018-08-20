@@ -4,7 +4,7 @@
 
 > Testing/Interaction for your Smart Contract made simple.
 
-Interact with Smart Contract ABI, Realtime Events, Realtime Transactions
+Interact with Smart Contract ABI, Monitoring Realtime Events and Transactions.
 
 ## Contributing
 
