@@ -2,6 +2,7 @@ extends ../layout
 
 block content
 	.row.justify-content-md-center
+		h2= contract.name
 		h6.display-heading Contract Address:
 			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 	.row
