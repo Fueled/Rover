@@ -1,7 +1,5 @@
 # Rover
 
-[![Build Status](https://travis-ci.org/ravidsrk/Rover.svg?branch=develop)](https://travis-ci.org/ravidsrk/Rover)
-
 > Testing/Interaction for your Smart Contract made simple.
 
 Interact with Smart Contract ABI, Monitoring Realtime Events and Transactions.
