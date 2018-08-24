@@ -5,8 +5,7 @@ block content
 		.col-md-12
 			.card.my-1
 				.card-body
-					h2 #{contract.name}
-					h6 Contract Address:
+					h2.display-heading #{contract.name}: 
 						a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 	.row
 		.col-md-3
