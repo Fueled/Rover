@@ -96,7 +96,7 @@ $(document).ready(() => {
 		var variableAbi = getAbiForAction(variableName);
 
 		if (variableAbi.inputs.length > 0) {
-			createInputListForAction(variableName, true);
+			createInputListForAction(variableAbi, true);
 		} else {
 			invokeEthCallRequestForMethod(variableName);
 		}
@@ -140,10 +140,9 @@ $(document).ready(() => {
 		var mappedResults = []
 		let resultKeys = _.keys(results)
 		_.each(outputs, function (output, index) {
-			output.result = results[resultKeys[index]]
+			output.result = typeof results !== 'object'? results: results[resultKeys[index]]
 			mappedResults.push(output)
 		})
-		console.log(mappedResults)
 		return mappedResults
 	}
 
