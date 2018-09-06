@@ -72,13 +72,18 @@ script#inputlist(type='text/html').
 			<% if (inputs.length > 0 && typeof(inputs) !== "undefined") { %>
 				<h5 class="card-title">Input</h5>
 				<% _.forEach(inputs, function(input) { %>
-					<div class="form-group">
+					<div class="form-group <%= (input.type === 'bool') ? ' form-check': '' %>">
 						<% if (input.name === "") { %>
 							<label for="input"><%- input.type %></label>
 							<input class="form-control" name="input">
 						<% } else { %>
-							<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
-							<input class="form-control" name="<%- input.name %>">
+							<% if (input.type !== "bool") { %>
+								<label class="form-check-label" for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+							<% } %>
+							<input type="<%= (input.type === 'bool') ? 'checkbox': 'text' %>" class="<%= (input.type === 'bool') ? 'form-check-input': 'form-control' %>" name="<%- input.name %>">
+							<% if (input.type === "bool") { %>
+								<label for="<%- input.name %>"><%- input.name %> (<%- input.type %>)</label>
+							<% } %>
 						<% } %>
 					</div>
 				<% }); %>
