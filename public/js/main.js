@@ -72,8 +72,19 @@ $(document).ready(() => {
 		e.preventDefault();
 		clearContainers();
 
-		var actionName = $(this).text();
-		createInputListForAction(actionName, false);
+		var actionAbi = getAbiForAction($(this).text());
+		createInputListForAction(actionAbi, false);
+	});
+
+	$(".sc-constructor").on("click", function (e) {
+		e.preventDefault();
+		clearContainers();
+
+		let actionAbi = _.find(contractAbi, function (abi) {
+			return abi.type === 'constructor';
+		});
+
+		createInputListForAction(actionAbi, false);
 	});
 
 	$(".sc-variable").on("click", function (e) {
@@ -136,9 +147,7 @@ $(document).ready(() => {
 		return mappedResults
 	}
 
-	function createInputListForAction(actionName, isVariable) {
-		var actionAbi = getAbiForAction(actionName);
-
+	function createInputListForAction(actionAbi, isVariable) {
 		let input = _.template($("#inputlist").html());
 
 		$("#input-form").html(input({
