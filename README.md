@@ -1,4 +1,4 @@
-# Rover
+# Rover [![Build Status](https://travis-ci.org/ravidsrk/Rover.svg?branch=develop)](https://travis-ci.org/ravidsrk/Rover)
 
 > Testing/Interaction for your Smart Contract made simple.
 
