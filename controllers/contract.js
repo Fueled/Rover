@@ -116,7 +116,7 @@ exports.showTransactions = (req, res) => {
       return res.render("transactions/transactions", {
         title: "Transactions",
         contract: contract,
-        transactions: response.result
+        transactions: _.reverse(response.result)
       });
     });
   });
@@ -188,7 +188,7 @@ exports.showEvents = (req, res) => {
         return res.render("contracts/events", {
           title: "Events",
           contract: contract,
-          events: events
+          events: _.reverse(events)
         });
       });
   });
