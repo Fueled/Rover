@@ -1,185 +1,196 @@
 /* eslint-env jquery, browser */
 $(document).ready(() => {
-  let currentContract;
-  let explorerApplication;
+	let currentContract;
+	let explorerApplication;
 
-  if (typeof web3 !== "undefined") {
-    web3 = new Web3(web3.currentProvider);
-  } else {
-    web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
-  }
+	if (typeof web3 !== "undefined") {
+		web3 = new Web3(web3.currentProvider);
+	} else {
+		web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
+	}
 
-  if (typeof contractAbi !== "undefined") {
-    currentContract = new web3.eth.Contract(contractAbi, contractAddress);
-    abiDecoder.addABI(contractAbi);
-    explorerApplication = new Web3Resolver(currentContract, [
-      {
-        name: "data",
-        method: "encodeABI",
-        options: {}
-      }
-    ]);
-  }
+	if (typeof contractAbi !== "undefined") {
+		currentContract = new web3.eth.Contract(contractAbi, contractAddress);
+		abiDecoder.addABI(contractAbi);
+		explorerApplication = new Web3Resolver(currentContract, [
+			{
+				name: "data",
+				method: "encodeABI",
+				options: {}
+			}
+		]);
+	}
 
-  $(document).on("click", ".send-transaction", function(e) {
-    e.preventDefault();
+	$(document).on("click", ".send-transaction", function (e) {
+		e.preventDefault();
 
-    let formData = $("#input-params").serializeArray();
-    let filterFormData = _.filter(formData, (input) => { return input.name !== "ethereum" })
-    let ethereumInput = _.find(formData, (input) => { return input.name === "ethereum" })
-    let amount = web3.utils.toWei(typeof ethereumInput !== 'undefined'? ethereumInput.value: '0')
-    let transactionParams = _.map(filterFormData, "value");
-    let methodName = $(this).attr("rel");
+		let formData = $("#input-params").serializeArray();
+		let filterFormData = _.filter(formData, (input) => { return input.name !== "ethereum" })
+		let ethereumInput = _.find(formData, (input) => { return input.name === "ethereum" })
+		let amount = web3.utils.toWei(typeof ethereumInput !== 'undefined' ? ethereumInput.value : '0')
+		let transactionParams = _.map(filterFormData, "value");
+		let methodName = $(this).attr("rel");
 
-    explorerApplication
-      .getTransactionConfig(methodName, transactionParams)
-      .then(data => {
-        web3.eth.getAccounts(function(error, accounts) {
-          web3.eth
-            .sendTransaction({
-              from: accounts[0],
-              to: data["address"],
-              data: data["data"],
-              value: amount 
-            })
-            .once("transactionHash", function(hash) {
-              let transactionHashTemplate = _.template($("#transaction-hash-template").html());
-              $("#transaction-hash").html(transactionHashTemplate({ hash: hash }));
-            })
-            .once("receipt", function(receipt) {
-              console.log(receipt);
-              displayTransactionDetails(receipt, data);
-            })
-            .on("error", function(error) {
-              // TODO: Handle error by showing Dialog
-              console.log(error);
-            });
-        });
-      });
-  });
+		explorerApplication
+			.getTransactionConfig(methodName, transactionParams)
+			.then(data => {
+				web3.eth.getAccounts(function (error, accounts) {
+					web3.eth
+						.sendTransaction({
+							from: accounts[0],
+							to: data["address"],
+							data: data["data"],
+							value: amount
+						})
+						.once("transactionHash", function (hash) {
+							let transactionHashTemplate = _.template($("#transaction-hash-template").html());
+							$("#transaction-hash").html(transactionHashTemplate({ hash: hash }));
+						})
+						.once("receipt", function (receipt) {
+							console.log(receipt);
+							displayTransactionDetails(receipt, data);
+						})
+						.on("error", function (error) {
+							// TODO: Handle error by showing Dialog
+							console.log(error);
+						});
+				});
+			});
+	});
 
-  $(document).on("click", ".send-call-request", function(e) {
-    e.preventDefault();
+	$(document).on("click", ".send-call-request", function (e) {
+		e.preventDefault();
 
-    let formData = $("#input-params").serializeArray();
-    let transactionParams = _.map(formData, "value");
-    let variableName = $(this).attr("rel");
+		let formData = $("#input-params").serializeArray();
+		let transactionParams = _.map(formData, "value");
+		let variableName = $(this).attr("rel");
 
-    invokeEthCallRequestForMethod(variableName, transactionParams);
-  });
+		invokeEthCallRequestForMethod(variableName, transactionParams);
+	});
 
-  $(".sc-action").on("click", function(e) {
-    e.preventDefault();
-    clearContainers();
+	$(".sc-action").on("click", function (e) {
+		e.preventDefault();
+		clearContainers();
 
-    var actionName = $(this).text();
-    createInputListForAction(actionName, false);
-  });
+		var actionName = $(this).text();
+		createInputListForAction(actionName, false);
+	});
 
-  $(".sc-variable").on("click", function(e) {
-    e.preventDefault();
-    clearContainers();
+	$(".sc-variable").on("click", function (e) {
+		e.preventDefault();
+		clearContainers();
 
-    var variableName = $(this).text();
+		var variableName = $(this).text();
 
-    var variableAbi = getAbiForAction(variableName);
+		var variableAbi = getAbiForAction(variableName);
 
-    if (variableAbi.inputs.length > 0) {
-      createInputListForAction(variableName, true);
-    } else {
-      invokeEthCallRequestForMethod(variableName);
-    }
-  });
+		if (variableAbi.inputs.length > 0) {
+			createInputListForAction(variableName, true);
+		} else {
+			invokeEthCallRequestForMethod(variableName);
+		}
+	});
 
-  function getAbiForAction(actionName) {
-    let abi = _.find(contractAbi, function(abi) {
-      return abi.name === actionName;
-    });
+	function getAbiForAction(actionName) {
+		let abi = _.find(contractAbi, function (abi) {
+			return abi.name === actionName;
+		});
 
-    return abi
-  }
+		return abi
+	}
 
-  $(".sc-event").on("click", function(e) {
-    e.preventDefault();
-    clearContainers();
+	$(".sc-event").on("click", function (e) {
+		e.preventDefault();
+		clearContainers();
 
-    let eventName = $(this).text();
-    displayPastEvents(eventName);
-  });
+		let eventName = $(this).text();
+		displayPastEvents(eventName);
+	});
 
-  function invokeEthCallRequestForMethod(variableName, transactionParams) {
-    currentContract.methods[variableName]
-      .apply(this, transactionParams || [])
-      .call()
-      .then(result => {
-        console.log(result);
-        displayOutput(variableName, result);
-      });
-  }
+	function invokeEthCallRequestForMethod(variableName, transactionParams) {
+		currentContract.methods[variableName]
+			.apply(this, transactionParams || [])
+			.call()
+			.then(result => {
+				console.log(result);
+				displayOutput(variableName, result);
+			});
+	}
 
-  function displayOutput(variableName, results) {
-    let abi = getAbiForAction(variableName);
-    let output = _.template($("#output-template").html());
-    $("#output").html(output({
-        result: results
-      }));
-  }
+	function displayOutput(variableName, results) {
+		let abi = getAbiForAction(variableName);
+		let output = _.template($("#output-template").html());
+		$("#output").html(output({
+			outputs: mapOutputToResults(abi.outputs, results)
+		}));
+	}
 
-  function createInputListForAction(actionName, isVariable) {
-    var actionAbi = getAbiForAction(actionName);
+	function mapOutputToResults(outputs, results) {
+		var mappedResults = []
+		let resultKeys = _.keys(results)
+		_.each(outputs, function (output, index) {
+			output.result = results[resultKeys[index]]
+			mappedResults.push(output)
+		})
+		console.log(mappedResults)
+		return mappedResults
+	}
 
-    let input = _.template($("#inputlist").html());
+	function createInputListForAction(actionName, isVariable) {
+		var actionAbi = getAbiForAction(actionName);
 
-    $("#input-form").html(input({
-        inputs: actionAbi.inputs,
-        payable: actionAbi.payable,
-        action: actionAbi.name,
-        isVariable: isVariable
-      }));
-  }
+		let input = _.template($("#inputlist").html());
 
-  function displayTransactionDetails(receipt, data) {
-    let transactionTemplate = _.template($("#transaction-details-template").html());
-    let eventsTemplate = _.template($("#event-list-template").html());
-    const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+		$("#input-form").html(input({
+			inputs: actionAbi.inputs,
+			payable: actionAbi.payable,
+			action: actionAbi.name,
+			isVariable: isVariable
+		}));
+	}
 
-    const formattedInput = JSON.stringify(JSON.parse(JSON.stringify(abiDecoder.decodeMethod(data["data"]))),
-      null,
-      2);
+	function displayTransactionDetails(receipt, data) {
+		let transactionTemplate = _.template($("#transaction-details-template").html());
+		let eventsTemplate = _.template($("#event-list-template").html());
+		const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
 
-    $("#transaction-details").html(transactionTemplate({
-        receipt: receipt,
-        inputData: formattedInput
-      }));
+		const formattedInput = JSON.stringify(JSON.parse(JSON.stringify(abiDecoder.decodeMethod(data["data"]))),
+			null,
+			2);
 
-    $("#event-details").html(eventsTemplate({
-        events: _.compact(decodedLogs)
-      }));
+		$("#transaction-details").html(transactionTemplate({
+			receipt: receipt,
+			inputData: formattedInput
+		}));
 
-    Prism.highlightAll();
-  }
+		$("#event-details").html(eventsTemplate({
+			events: _.compact(decodedLogs)
+		}));
 
-  function displayPastEvents(eventName) {
-    currentContract.getPastEvents(eventName,
-      {
-        fromBlock: 0,
-        toBlock: "latest"
-      },
-      function(error, events) {
-        displayEvent(events, eventName);
-      });
-  }
+		Prism.highlightAll();
+	}
 
-  function displayEvent(events, eventName) {
-    let eventsTemplate = _.template($("#past-events-template").html());
-    $("#event-details").html(eventsTemplate({
-        events: events,
-        eventName: eventName
-      }));
-    Prism.highlightAll();
-  }
+	function displayPastEvents(eventName) {
+		currentContract.getPastEvents(eventName,
+			{
+				fromBlock: 0,
+				toBlock: "latest"
+			},
+			function (error, events) {
+				displayEvent(events, eventName);
+			});
+	}
 
-  function clearContainers() {
-    $("#input-form, #transaction-hash, #transaction-details, #output, #event-details").empty();
-  }
+	function displayEvent(events, eventName) {
+		let eventsTemplate = _.template($("#past-events-template").html());
+		$("#event-details").html(eventsTemplate({
+			events: events,
+			eventName: eventName
+		}));
+		Prism.highlightAll();
+	}
+
+	function clearContainers() {
+		$("#input-form, #transaction-hash, #transaction-details, #output, #event-details").empty();
+	}
 });
