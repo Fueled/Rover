@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .row.justify-content-md-center
+    .col-md-7
+      .card
+        .card-body
+          h2.card-title New Abi
+          form(method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            input(type='hidden', name='project', id='user', value=projectId)
+            .form-group
+              label(for='name') Name
+              input#contractName.form-control(placeholder='ABI Name' name='name')
+            .form-group
+              label(for='contractAbi') ABI Interface
+              textarea#contractAbi.form-control(rows='8' name='abi')
+            button.btn.btn-primary(type='submit') Submit
