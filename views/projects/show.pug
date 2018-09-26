@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+	.row
+		.col-md-12
+			.card.my-1
+				.card-body
+					h2.display-heading #{project.name} 
+	.row.justify-content-md-center
+		.col-md-9
+			h6.display-heading.clearfix Project ABIs
+				a.btn.btn-outline-primary.btn-sm.float-right(href=`/projects/${project._id}/abis`, role='button') Upload New ABI
+			each abi in abis
+				.card.my-4
+					.card-body
+						p.card-text 
+							strong Name: 
+							a(href=`/c/${abi._id}`)= abi.name
+						p.card-text 
+							strong ABI: 
+							pre
+								code.language-javascript #{jsonminify(abi.abi)}
+						a.btn.btn-outline-success.btn-sm(href=`/projects/${project._id}/abis`, role='button') New #{abi.name} Contract

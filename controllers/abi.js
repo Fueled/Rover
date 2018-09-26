@@ -7,6 +7,15 @@ var AbiModel = require('../models/Abi.js');
  */
 module.exports = {
 
+    getAbi: (req, res) => {
+        const unknownUser = !req.user;
+        res.render("abis/create", {
+          title: "New ABI",
+          projectId: req.params.id,
+          unknownUser
+        });
+      },
+
     /**
      * AbiController.list()
      */
@@ -49,8 +58,8 @@ module.exports = {
     create: function (req, res) {
         var Abi = new AbiModel({
 			name : req.body.name,
-			project : req.body.project
-
+            project : req.body.project,
+            abi: req.body.abi
         });
 
         Abi.save(function (err, Abi) {
@@ -60,7 +69,7 @@ module.exports = {
                     error: err
                 });
             }
-            return res.status(201).json(Abi);
+            return res.redirect("/projects/" + req.body.project);
         });
     },
 

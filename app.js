@@ -30,6 +30,8 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const contactController = require('./controllers/contact');
 const contractController = require('./controllers/contract');
+const projectController = require('./controllers/project');
+const abiController = require('./controllers/abi');
 
 /**
  * API keys and Passport configuration.
@@ -138,6 +140,7 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
+// Contracts
 app.get('/contract', passportConfig.isAuthenticated, contractController.getContract);
 app.post('/contract', passportConfig.isAuthenticated, contractController.createContract);
 app.get('/contracts', contractController.list);
@@ -146,6 +149,17 @@ app.get('/c/:id/transactions', contractController.showTransactions);
 app.get('/c/:id/transactions/:hash', contractController.showTransaction);
 app.get('/c/:id/events', contractController.showEvents);
 
+// Projects
+app.get('/project', passportConfig.isAuthenticated, projectController.getProject);
+app.post('/project', passportConfig.isAuthenticated, projectController.create);
+app.get('/projects', projectController.list);
+app.get('/projects/:id', projectController.show);
+
+// Abis
+app.get('/projects/:id/abis', abiController.getAbi);
+app.post('/projects/:id/abis', abiController.create);
+
+// Account
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);

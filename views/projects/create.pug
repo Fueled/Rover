@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .row.justify-content-md-center
+    .col-md-7
+      .card
+        .card-body
+          h2.card-title New Project
+          form(method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            input(type='hidden', name='user', id='user', value=user._id)
+            .form-group
+              label(for='name') Name
+              input#contractName.form-control(placeholder='Project Name' name='name')
+            button.btn.btn-primary(type='submit') Submit
