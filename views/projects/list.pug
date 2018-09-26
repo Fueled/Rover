@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+	.row.justify-content-md-center
+		.col-md-9
+			h6.display-heading.clearfix Your Projects
+				a.btn.btn-outline-primary.btn-sm.float-right(href='/project', role='button') New Project
+			each project in projects
+				.card.my-4
+					.card-body
+						p.card-text 
+							strong Project Name: 
+							a(href=`/projects/${project._id}`)= project.name

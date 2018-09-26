@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .row.justify-content-md-center
+    .col-md-7
+      .card
+        .card-body
+          h2.card-title Upload Contract
+          form(method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            input(type='hidden', name='user', id='user', value=user._id)
+            .form-group
+              label(for='contractAddress') Contract Address
+              input#contractAddress.form-control(placeholder='Enter Contract Address' name='address')
+            .form-group
+              label(for='network') Network
+              select#network.form-control.mdb-select(name='network')
+                option(value='' disabled='' selected='') Select Network
+                option(value='mainnet') Main Ethereum Network
+                option(value='rinkeby') Rinkeby Test Network
+                option(value='ropsten') Ropsten Test Network
+                option(value='kovan') Kovan Test Network
+            button.btn.btn-primary(type='submit') Submit

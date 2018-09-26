@@ -50,7 +50,7 @@ exports.list = (req, res) => {
       });
     }
     return res.render("contracts/list", {
-      title: "Contracts",
+      title: "My Contracts",
       contracts: contracts
     });
   });
