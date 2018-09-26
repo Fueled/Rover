@@ -158,6 +158,8 @@ app.get('/projects/:id', projectController.show);
 // Abis
 app.get('/projects/:id/abis', abiController.getAbi);
 app.post('/projects/:id/abis', abiController.create);
+app.get('/abis/:id', abiController.getContract);
+app.post('/abis/:id', abiController.createContract);
 
 // Account
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
