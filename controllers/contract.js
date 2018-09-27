@@ -78,10 +78,26 @@ exports.show = (req, res) => {
       return abi.constant;
     });
     var [events, variables, methods, init] = [
-      abiGroup.event,
-      functions[0],
-      functions[1],
-      abiGroup.constructor
+      _.sortBy(abiGroup.event, [
+        function(o) {
+          return o.name;
+        }
+      ]),
+      _.sortBy(functions[0], [
+        function(o) {
+          return o.name;
+        }
+      ]),
+      _.sortBy(functions[1], [
+        function(o) {
+          return o.name;
+        }
+      ]),
+      _.sortBy(abiGroup.constructor, [
+        function(o) {
+          return o.name;
+        }
+      ])
     ];
 
     return res.render("contracts/show", {
@@ -148,7 +164,7 @@ exports.showTransaction = (req, res) => {
         web3.eth.getBlock(transactionResult.blockNumber),
         web3.eth.getTransactionReceipt(hash)
       ]).then(function(result) {
-        return res.render("transactions/transaction",{
+        return res.render("transactions/transaction", {
           decodedInput: abiDecoder.decodeMethod(transactionResult.input),
           transaction: transactionResult,
           transactionBlock: result[0],
