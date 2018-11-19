@@ -79,6 +79,12 @@ app.use(session({
     autoReconnect: true,
   })
 }));
+app.use(require('forest-express-mongoose').init({
+  modelsDir: __dirname + '/models',
+  envSecret: process.env.FOREST_ENV_SECRET,
+  authSecret: process.env.FOREST_AUTH_SECRET,
+  mongoose: require('mongoose')
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
