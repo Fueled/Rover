@@ -18,6 +18,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
 const Rollbar = require("rollbar");
+const _ = require("lodash");
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -124,6 +125,14 @@ app.use(rollbar.errorHandler());
 app.locals.moment = require('moment');
 app.locals.web3 = require('web3');
 app.locals.jsonminify = require('jsonminify');
+app.locals.contractEvents = function(contractAbi, event) {
+  let eventDefinitions = {};
+  let abi = _.find(JSON.parse(contractAbi), function(a) { return a.name === event.event})
+  abi.inputs.forEach(({  name }) => {
+      eventDefinitions[name] = event.returnValues[name]
+  });
+  return eventDefinitions;
+}
 
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));

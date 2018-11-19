@@ -4,7 +4,7 @@ const Web3 = require("web3");
 const api = require("etherscan-api").init(process.env.ETHERSCAN_API_KEY,
   "rinkeby",
   "3000");
-const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
+const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY));
 const abiDecoder = require("abi-decoder");
 
 /**

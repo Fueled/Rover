@@ -18,7 +18,7 @@ block content
 						p.card-title 
 							strong Params:
 							pre
-								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(event.returnValues)),null,2)}
+								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(contractEvents(contract.abi, event))),null,2)}
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
