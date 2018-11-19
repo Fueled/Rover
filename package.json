@@ -57,6 +57,7 @@
     "popper.js": "^1.14.5",
     "pug": "^2.0.3",
     "request": "^2.88.0",
+    "rollbar": "^2.5.0",
     "typedarray-to-buffer": "^3.1.5",
     "validator": "^10.9.0",
     "web3": "^1.0.0-beta.36"

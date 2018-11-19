@@ -17,11 +17,18 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
+const Rollbar = require("rollbar");
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.load({ path: '.env' });
+
+const rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
 
 /**
  * Controllers (route handlers).
@@ -112,6 +119,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.use(rollbar.errorHandler());
 
 app.locals.moment = require('moment');
 app.locals.web3 = require('web3');
