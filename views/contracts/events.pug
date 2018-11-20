@@ -4,8 +4,16 @@ block content
 	.row.justify-content-md-center
 		h6.display-heading  Events for Contract Address: 
 			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
-	.row.justify-content-md-center
-		.col-md-10
+	.row
+		.col-md-3
+			.card.my-2
+				.card-body
+					h4.card-title Events
+					ul.list-group.list-group-flush
+						each event in eventsAbi
+							li.list-group-item
+								a.sc-event(href="#")= event.name
+		.col-md-9
 			each event in events
 				.card.my-3
 					.card-body
@@ -18,7 +26,7 @@ block content
 						p.card-title 
 							strong Params:
 							pre
-								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(event.returnValues)),null,2)}
+								code.language-javascript #{JSON.stringify(JSON.parse(JSON.stringify(contractEvents(contract.abi, event))),null,2)}
 
 	script(type='text/javascript').
 		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})

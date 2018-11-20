@@ -5,9 +5,16 @@ block content
 		.col-md-9
 			h6.display-heading.clearfix Your Projects
 				a.btn.btn-outline-primary.btn-sm.float-right(href='/project', role='button') New Project
-			each project in projects
+			if projects.length < 0
+				each project in projects
+					.card.my-4
+						.card-body
+							p.card-text 
+								strong Project Name: 
+								a(href=`/projects/${project._id}`)= project.name
+			else
 				.card.my-4
 					.card-body
-						p.card-text 
-							strong Project Name: 
-							a(href=`/projects/${project._id}`)= project.name
+						h3.card-title
+							| No projects yet. 
+							a(href='/project', role='button') Create New Project
