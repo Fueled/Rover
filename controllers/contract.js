@@ -195,6 +195,18 @@ exports.showEvents = (req, res) => {
     let currentContract = new web3.eth.Contract(JSON.parse(contract.abi),
       contract.address);
 
+      var abiGroup = _.groupBy(JSON.parse(contract.abi), function(pool) {
+        return pool.type;
+      });
+      
+      var [eventsAbi] = [
+        _.sortBy(abiGroup.event, [
+          function(o) {
+            return o.name;
+          }
+        ])
+      ];
+
     currentContract.getPastEvents("allEvents",
       {
         fromBlock: 0,
@@ -203,6 +215,7 @@ exports.showEvents = (req, res) => {
       function(error, events) {
         return res.render("contracts/events", {
           title: "Events",
+          eventsAbi: eventsAbi,
           contract: contract,
           events: _.reverse(events)
         });
