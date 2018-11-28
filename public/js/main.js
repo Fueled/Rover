@@ -1,5 +1,7 @@
 /* eslint-env jquery, browser */
 $(document).ready(() => {
+
+	new ClipboardJS('.clipboard-copy');
     let currentContract;
     let explorerApplication;
     let config = {
