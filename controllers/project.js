@@ -1,5 +1,6 @@
 var ProjectModel = require("../models/Project.js");
 var AbiModel = require("../models/Abi.js");
+const uuidv4 = require('uuid/v4')
 
 /**
  * ProjectController.js
@@ -73,7 +74,8 @@ module.exports = {
     create: function (req, res) {
         var Project = new ProjectModel({
             name: req.body.name,
-            user: req.body.user
+			user: req.body.user,
+			secret: uuidv4()
         });
 
         Project.save(function (err, project) {
