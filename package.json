@@ -55,7 +55,7 @@
     "passport-local": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "passport-openid": "^0.4.0",
-    "popper.js": "^1.14.5",
+    "popper.js": "^1.14.6",
     "pug": "^2.0.3",
     "request": "^2.88.0",
     "rollbar": "^2.5.1",

@@ -1,7 +1,8 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-var AbiSchema = new Schema({
+const Schema = mongoose.Schema;
+
+const AbiSchema = new Schema({
     name: String,
     abi: String,
     project: {
