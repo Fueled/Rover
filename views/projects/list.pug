@@ -5,16 +5,22 @@ block content
 		.col-md-9
 			h6.display-heading.clearfix Your Projects
 				a.btn.btn-outline-primary.btn-sm.float-right(href='/project', role='button') New Project
-			if projects.length < 0
+			if projects.length > 0
 				each project in projects
 					.card.my-4
+						.card-header
+							a.card-title(href=`/projects/${project._id}`)= project.name.toUpperCase()
 						.card-body
-							p.card-text 
-								strong Project Name: 
-								a(href=`/projects/${project._id}`)= project.name
+							p.card-title
+								strong Projet API Key :
+								span.copy-it  #{project.id}
+							p.card-title
+								strong Project API SECRET :
+								span.copy-it  #{project.secret}
+
 			else
 				.card.my-4
 					.card-body
 						h3.card-title
-							| No projects yet. 
+							| No projects yet.
 							a(href='/project', role='button') Create New Project
