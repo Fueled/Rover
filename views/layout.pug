@@ -6,14 +6,22 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
+
+    meta(name='twitter:card' content='summary_large_image')
+    meta(name='twitter:site' content='@ravidsrk')
+    meta(name='twitter:title' content='Rover - Testing/Interaction for your Smart Contract made simple.')
+    meta(name='twitter:description' content='Rover gives ability to load up smart contracts and execute methods and read out the contract state. Besides that it can listen to events occurred that are emitted by the smart contract code.')
+
+    meta(property='og:url' content='https://rover-fueled.herokuapp.com/')
+    meta(property='og:title' content='Rover - Testing/Interaction for your Smart Contract made simple.')
+    meta(property='og:description' content='Rover gives ability to load up smart contracts and execute methods and read out the contract state. Besides that it can listen to events occurred that are emitted by the smart contract code.')
+
     title #{title} - Rover
     link(rel='shortcut icon', href='/favicon.png')
     link(rel='stylesheet', href='/css/main.css')
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css')
-
   body
     include partials/header
-    
+
     main.pt-4
       .container
         include partials/flash
@@ -24,12 +32,13 @@ html
     script(src='/js/lib/jquery.min.js')
     script(src='/js/lib/popper.min.js')
     script(src='/js/lib/bootstrap.min.js')
-    script(type='/js/lib/mdb.min.js')
+    script(src='/js/lib/mdb.min.js')
     script(src='/js/lib/lodash.min.js')
     script(src='/js/lib/web3.min.js')
     script(src='/js/lib/abi-decoder.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js')
-    script(src='/js/lib/getWeb3.js')
+    script(src='/js/lib/web3Webpacked.min.js')
+    script(src='/js/lib/clipboard.min.js')
+    script(src='/js/lib/prism.min.js')
     script(src='/js/lib/web3-resolvers.js')
     script(src='/js/main.js')
 

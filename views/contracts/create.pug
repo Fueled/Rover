@@ -25,5 +25,5 @@ block content
                 option(value='kovan') Kovan Test Network
             .form-group
               label(for='contractAbi') ABI Interface
-              textarea#contractAbi.form-control(rows='8' name='abi')
+              textarea#contractAbi.form-control(rows='8' name='abi' placeholder='[{"constant":false,"inputs":[{"name":"firstName","type":"string"},{"name":"surname","type":"string"}],"name":"addName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"},{"indexed":false,"name":"firstName","type":"string"},{"indexed":false,"name":"surname","type":"string"}],"name":"NameAdded","type":"event"}]')
             button.btn.btn-primary(type='submit') Submit
