@@ -1,42 +1,42 @@
 nav.navbar.nav-fixed.navbar-expand-lg.navbar-dark.bg-primary
-	.container
-		a.navbar-brand(href='/') Rover
-		#navbarSupportedContent.collapse.navbar-collapse
-			ul.navbar-nav.mr-auto
-				if contract
-					li.nav-item(class=(title === 'Transactions') ? 'active' : undefined)
-						a.nav-link(href=`/c/${contract._id}/transactions`) Transactions
-					li.nav-item(class=(title === 'Events') ? 'active' : undefined)
-						a.nav-link(href=`/c/${contract._id}/events`) Events
-			.md-form.my-0
-				ul.navbar-nav.mr-auto
-					if contract
-						li.nav-item.dropdown
-							a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-								| Mainnet
-							.dropdown-menu.dropdown-info(aria-labelledby='navbarDropdownMenuLink')
-								a.dropdown-item(href='#') Action
-								a.dropdown-item(href='#') Another action
-								a.dropdown-item(href='#') Something else here
-					if !user
-						li.nav-item(class=(title === 'Login') ? 'active' : undefined)
-							a.nav-link(href='/login') Login
-						li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
-							a.nav-link(href='/signup') Create Account
-					else
-						li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
-							a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
-								span= user.profile.name || user.email || user.id
-								i.caret
-							ul.dropdown-menu
-								li.dropdown-item
-									a(href='/account') My Account
-								li.divider.dropdown-item
-								li.dropdown-item
-									a(href='/contracts') My Contracts
-								li.divider.dropdown-item
-								li.dropdown-item
-									a(href='/projects') My Projects
-								li.divider.dropdown-item
-								li.dropdown-item
-									a(href='/logout') Logout
+    .container
+        a.navbar-brand(href='/') Rover
+        #navbarSupportedContent.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+                if contract
+                    li.nav-item(class=(title === 'Transactions') ? 'active' : undefined)
+                        a.nav-link(href=`/c/${contract._id}/transactions`) Transactions
+                    li.nav-item(class=(title === 'Events') ? 'active' : undefined)
+                        a.nav-link(href=`/c/${contract._id}/events`) Events
+            .md-form.my-0
+                ul.navbar-nav.mr-auto
+                    if contract
+                        li.nav-item.dropdown
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                | Mainnet
+                            .dropdown-menu.dropdown-info(aria-labelledby='navbarDropdownMenuLink')
+                                a.dropdown-item(href='#') Action
+                                a.dropdown-item(href='#') Another action
+                                a.dropdown-item(href='#') Something else here
+                    if !user
+                        li.nav-item(class=(title === 'Login') ? 'active' : undefined)
+                            a.nav-link(href='/login') Login
+                        li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
+                            a.nav-link(href='/signup') Create Account
+                    else
+                        li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+                            a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+                                span= user.profile.name || user.email || user.id
+                                i.caret
+                            ul.dropdown-menu
+                                li.dropdown-item
+                                    a(href='/account') My Account
+                                li.divider.dropdown-item
+                                li.dropdown-item
+                                    a(href='/contracts') My Contracts
+                                li.divider.dropdown-item
+                                li.dropdown-item
+                                    a(href='/projects') My Projects
+                                li.divider.dropdown-item
+                                li.dropdown-item
+                                    a(href='/logout') Logout

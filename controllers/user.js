@@ -1,8 +1,8 @@
-const {promisify} = require('util');
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const passport = require('passport');
-const User = require('../models/User');
+import {promisify} from "util";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
+import passport from "passport";
+import User from "../models/User";
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 

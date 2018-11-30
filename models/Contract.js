@@ -1,7 +1,8 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-var contractSchema = new Schema({
+const Schema = mongoose.Schema;
+
+const contractSchema = new Schema({
     'name': String,
     'abi': String,
     'address': String,

@@ -1,23 +1,23 @@
 extends ../layout
 
 block content
-	.row.justify-content-md-center
-		.col-md-9
-			h6.display-heading.clearfix Your Contracts
-				a.btn.btn-outline-primary.btn-sm.float-right(href='/contract', role='button') Upload Contract
-			each contract in contracts
-				.card.my-4
-					.card-body
-						p.card-text 
-							strong Contract Name: 
-							a(href=`/c/${contract._id}`)= contract.name
-						p.card-text 
-							strong Address: 
-							a(href=`/c/${contract._id}`)= contract.address
-						p.card-text 
-							strong Network: 
-							| #{contract.network}
-						p.card-text 
-							strong ABI: 
-							pre
-								code.language-javascript #{jsonminify(contract.abi)}
+    .row.justify-content-md-center
+        .col-md-9
+            h6.display-heading.clearfix Your Contracts
+                a.btn.btn-outline-primary.btn-sm.float-right(href='/contract', role='button') Upload Contract
+            each contract in contracts
+                .card.my-4
+                    .card-body
+                        p.card-text
+                            strong Contract Name:
+                            a(href=`/c/${contract._id}`)= contract.name
+                        p.card-text
+                            strong Address:
+                            a(href=`/c/${contract._id}`)= contract.address
+                        p.card-text
+                            strong Network:
+                            | #{contract.network}
+                        p.card-text
+                            strong ABI:
+                            pre
+                                code.language-javascript #{jsonminify(contract.abi)}

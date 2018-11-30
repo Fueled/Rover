@@ -1,8 +1,7 @@
-const passport = require('passport');
-const {Strategy: LocalStrategy} = require('passport-local');
-const {OAuth2Strategy: GoogleStrategy} = require('passport-google-oauth');
-
-const User = require('../models/User');
+import passport from "passport";
+import {Strategy as LocalStrategy} from "passport-local";
+import {OAuth2Strategy as GoogleStrategy} from "passport-google-oauth";
+import User from "../models/User";
 
 passport.serializeUser((user, done) => {
     done(null, user.id);

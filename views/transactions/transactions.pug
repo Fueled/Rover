@@ -1,33 +1,33 @@
 extends ../layout
 
 block content
-	.row.justify-content-md-center
-		h6.display-heading Transactions for Contract Address: 
-			a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
+    .row.justify-content-md-center
+        h6.display-heading Transactions for Contract Address:
+            a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
 
-	.row.justify-content-md-center
-		.col-md-10
-			each transaction in transactions
-				.card.my-3
-					.card-body
-						p.card-text 
-							strong Transaction Hash: 
-							a(href=`/c/${contract._id}/transactions/${transaction.hash}`) #{transaction.hash}
-						p.card-text 
-							strong Timestamp: 
-							| #{moment.unix(transaction.timeStamp).fromNow()}
-						p.card-text 
-							strong From: 
-							a(href=`https://rinkeby.etherscan.io/address/${transaction.from}`) #{transaction.from}
-						p.card-text 
-							strong Value: 
-							| #{web3.utils.fromWei(transaction.value)} ETH
-						p.card-text 
-							strong Fee: 
-							| #{web3.utils.fromWei(transaction.gasUsed)} ETH
+    .row.justify-content-md-center
+        .col-md-10
+            each transaction in transactions
+                .card.my-3
+                    .card-body
+                        p.card-text
+                            strong Transaction Hash:
+                            a(href=`/c/${contract._id}/transactions/${transaction.hash}`) #{transaction.hash}
+                        p.card-text
+                            strong Timestamp:
+                            | #{moment.unix(transaction.timeStamp).fromNow()}
+                        p.card-text
+                            strong From:
+                            a(href=`https://rinkeby.etherscan.io/address/${transaction.from}`) #{transaction.from}
+                        p.card-text
+                            strong Value:
+                            | #{web3.utils.fromWei(transaction.value)} ETH
+                        p.card-text
+                            strong Fee:
+                            | #{web3.utils.fromWei(transaction.gasUsed)} ETH
 
-		script(type='text/javascript').
-			const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
-			const contractAddress = "#{contract.address}"
+        script(type='text/javascript').
+            const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
+            const contractAddress = "#{contract.address}"
 
 

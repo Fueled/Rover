@@ -1,25 +1,26 @@
 /**
  * Module dependencies.
  */
-const express = require('express');
-const compression = require('compression');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const chalk = require('chalk');
-const errorHandler = require('errorhandler');
-const lusca = require('lusca');
-const dotenv = require('dotenv');
-const MongoStore = require('connect-mongo')(session);
-const flash = require('express-flash');
-const path = require('path');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const expressValidator = require('express-validator');
-const sass = require('node-sass-middleware');
-const Rollbar = require("rollbar");
-const _ = require("lodash");
+import express from "express";
+import compression from "compression";
+import session from "express-session";
+import bodyParser from "body-parser";
+import logger from "morgan";
+import chalk from "chalk";
+import errorHandler from "errorhandler";
+import lusca from "lusca";
+import dotenv from "dotenv";
+import connect_mongo from "connect-mongo";
+import flash from "express-flash";
+import path from "path";
+import mongoose from "mongoose";
+import passport from "passport";
+import expressValidator from "express-validator";
+import sass from "node-sass-middleware";
+import Rollbar from "rollbar";
+import _ from "lodash";
 
+const MongoStore = connect_mongo(session);
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */

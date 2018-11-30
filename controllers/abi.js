@@ -1,5 +1,5 @@
-const AbiModel = require("../models/Abi.js");
-const ContractModel = require("../models/Contract.js");
+import AbiModel from "../models/Abi.js";
+import ContractModel from "../models/Contract.js";
 
 /**
  * AbiController.js

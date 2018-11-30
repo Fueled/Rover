@@ -1,17 +1,18 @@
-const contractModel = require("../models/Contract.js");
-const _ = require("lodash");
-const Web3 = require("web3");
-const api = require("etherscan-api").init(process.env.ETHERSCAN_API_KEY,
-    "rinkeby",
-    "3000");
-const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY));
-const abiDecoder = require("abi-decoder");
-
 /**
- * contractController.js
+ * contract.js
  *
  * @description :: Server-side logic for managing contracts.
  */
+import contractModel from "../models/Contract.js";
+import _ from "lodash";
+import Web3 from "web3";
+import {init} from "etherscan-api";
+import abiDecoder from "abi-decoder";
+
+const api = init(process.env.ETHERSCAN_API_KEY,
+    "rinkeby",
+    "3000");
+const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY));
 
 exports.getContract = (req, res) => {
     const unknownUser = !req.user;
@@ -22,7 +23,7 @@ exports.getContract = (req, res) => {
 };
 
 exports.createContract = (req, res) => {
-    var contract = new contractModel({
+    let contract = new contractModel({
         name: req.body.name,
         abi: req.body.abi,
         address: req.body.address,
@@ -57,7 +58,7 @@ exports.list = (req, res) => {
 };
 
 exports.show = (req, res) => {
-    var id = req.params.id;
+    let id = req.params.id;
     contractModel.findOne({_id: id}, function (err, contract) {
         if (err) {
             return res.status(500).json({
@@ -71,13 +72,13 @@ exports.show = (req, res) => {
             });
         }
 
-        var abiGroup = _.groupBy(JSON.parse(contract.abi), function (pool) {
+        let abiGroup = _.groupBy(JSON.parse(contract.abi), function (pool) {
             return pool.type;
         });
-        var functions = _.partition(abiGroup.function, function (abi) {
+        let functions = _.partition(abiGroup.function, function (abi) {
             return abi.constant;
         });
-        var [events, variables, methods, init] = [
+        let [events, variables, methods, init] = [
             _.sortBy(abiGroup.event, [
                 function (o) {
                     return o.name;
@@ -112,7 +113,7 @@ exports.show = (req, res) => {
 };
 
 exports.showTransactions = (req, res) => {
-    var id = req.params.id;
+    let id = req.params.id;
 
     contractModel.findOne({_id: id}, function (err, contract) {
         if (err) {
@@ -127,7 +128,7 @@ exports.showTransactions = (req, res) => {
             });
         }
 
-        var txlist = api.account.txlist(contract.address);
+        let txlist = api.account.txlist(contract.address);
         txlist.then(function (response) {
             return res.render("transactions/transactions", {
                 title: "Transactions",
@@ -139,8 +140,8 @@ exports.showTransactions = (req, res) => {
 };
 
 exports.showTransaction = (req, res) => {
-    var id = req.params.id;
-    var hash = req.params.hash;
+    let id = req.params.id;
+    let hash = req.params.hash;
 
     contractModel.findOne({_id: id}, function (err, contract) {
         if (err) {
@@ -177,7 +178,7 @@ exports.showTransaction = (req, res) => {
 };
 
 exports.showEvents = (req, res) => {
-    var id = req.params.id;
+    let id = req.params.id;
 
     contractModel.findOne({_id: id}, function (err, contract) {
         if (err) {
@@ -195,11 +196,11 @@ exports.showEvents = (req, res) => {
         let currentContract = new web3.eth.Contract(JSON.parse(contract.abi),
             contract.address);
 
-        var abiGroup = _.groupBy(JSON.parse(contract.abi), function (pool) {
+        let abiGroup = _.groupBy(JSON.parse(contract.abi), function (pool) {
             return pool.type;
         });
 
-        var [eventsAbi] = [
+        let [eventsAbi] = [
             _.sortBy(abiGroup.event, [
                 function (o) {
                     return o.name;

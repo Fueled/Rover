@@ -1,51 +1,51 @@
 extends ../layout
 
 block content
-	.row
-		.col-md-12
-			.card.my-1
-				.card-body
-					h2.display-heading #{contract.name}: 
-						a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
-	.row
-		.col-md-3
-			.card.my-2
-				.card-body
-					h4.card-title Constructor
-					ul.list-group.list-group-flush
-						each method in init
-							li.list-group-item
-								a.sc-constructor(href="#")= method.type
-			.card.my-2
-				.card-body
-					h4.card-title Functions
-					ul.list-group.list-group-flush
-						each method in methods
-							li.list-group-item
-								a.sc-action(href="#")= method.name
-			.card.my-2
-				.card-body
-					h4.card-title Variables
-					ul.list-group.list-group-flush
-						each variable in variables
-							li.list-group-item
-								a.sc-variable(href="#")= variable.name
-			.card.my-2
-				.card-body
-					h4.card-title Events
-					ul.list-group.list-group-flush
-						each event in events
-							li.list-group-item
-								a.sc-event(href="#")= event.name
-		.col-md-9
-			#input-form.card.my-2
-			#transaction-hash.card.my-2
-			#transaction-details.card.my-2
-			#event-details
-			#output.card.my-2
+    .row
+        .col-md-12
+            .card.my-1
+                .card-body
+                    h2.display-heading #{contract.name}:
+                        a(href=`https://rinkeby.etherscan.io/address/${contract.address}`)= contract.address
+    .row
+        .col-md-3
+            .card.my-2
+                .card-body
+                    h4.card-title Constructor
+                    ul.list-group.list-group-flush
+                        each method in init
+                            li.list-group-item
+                                a.sc-constructor(href="#")= method.type
+            .card.my-2
+                .card-body
+                    h4.card-title Functions
+                    ul.list-group.list-group-flush
+                        each method in methods
+                            li.list-group-item
+                                a.sc-action(href="#")= method.name
+            .card.my-2
+                .card-body
+                    h4.card-title Variables
+                    ul.list-group.list-group-flush
+                        each variable in variables
+                            li.list-group-item
+                                a.sc-variable(href="#")= variable.name
+            .card.my-2
+                .card-body
+                    h4.card-title Events
+                    ul.list-group.list-group-flush
+                        each event in events
+                            li.list-group-item
+                                a.sc-event(href="#")= event.name
+        .col-md-9
+            #input-form.card.my-2
+            #transaction-hash.card.my-2
+            #transaction-details.card.my-2
+            #event-details
+            #output.card.my-2
 
-	include ../partials/templates
-		
-	script(type='text/javascript').
-		const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
-		const contractAddress = "#{contract.address}"
+    include ../partials/templates
+
+    script(type='text/javascript').
+        const contractAbi = JSON.parse(!{JSON.stringify(contract.abi)})
+        const contractAddress = "#{contract.address}"

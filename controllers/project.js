@@ -1,6 +1,6 @@
-var ProjectModel = require("../models/Project.js");
-var AbiModel = require("../models/Abi.js");
-const uuidv4 = require('uuid/v4')
+import ProjectModel from "../models/Project.js";
+import AbiModel from "../models/Abi.js";
+import uuidv4 from "uuid/v4";
 
 /**
  * ProjectController.js
@@ -39,7 +39,7 @@ module.exports = {
      * ProjectController.show()
      */
     show: function (req, res) {
-        var id = req.params.id;
+        let id = req.params.id;
         ProjectModel.findOne({_id: id}, function (err, project) {
             if (err) {
                 return res.status(500).json({
@@ -72,10 +72,10 @@ module.exports = {
      * ProjectController.create()
      */
     create: function (req, res) {
-        var Project = new ProjectModel({
+        let Project = new ProjectModel({
             name: req.body.name,
-			user: req.body.user,
-			secret: uuidv4()
+            user: req.body.user,
+            secret: uuidv4()
         });
 
         Project.save(function (err, project) {
@@ -94,7 +94,7 @@ module.exports = {
      * ProjectController.update()
      */
     update: function (req, res) {
-        var id = req.params.id;
+        let id = req.params.id;
         ProjectModel.findOne({_id: id}, function (err, Project) {
             if (err) {
                 return res.status(500).json({
@@ -128,7 +128,7 @@ module.exports = {
      * ProjectController.remove()
      */
     remove: function (req, res) {
-        var id = req.params.id;
+        let id = req.params.id;
         ProjectModel.findByIdAndRemove(id, function (err, Project) {
             if (err) {
                 return res.status(500).json({
